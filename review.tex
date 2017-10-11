@@ -1,4 +1,101 @@
 \chapter{Review on signals}
+schema segnale
+
+The signal transmission that we will see is based on a standard \emph{Reference communication model}, where $a(t)$ is the signal (e.g. the EEG or the ECG). We will review some critical aspects like the types of signals, which are divided into deterministic and random processes, how to acquire and digitalize them, minding that we will need to saple and quantize the signal, some modulator and modulation schemes through which transmit the signal and finally we will review the types of channels. We will end the review showing communication errors and the link budget formula.
+
+\section{Signals}
+We divide the class of signals into different classes:
+\paragraph{Continuous time}
+
+\begin{equation}
+  \begin{cases}
+    x(t) &x: \R \to \C  \\
+    X(f) & X(f)  =\F[x(t)] = \int_{-\infty}^{+\infty} x(t) \, e^{-\jmath 2 \pi f t} d\,t
+  \end{cases}
+\end{equation}
+
+\paragraph{Periodic signals}
+\begin{equation}
+  \begin{cases}
+    x(t) = x(t+T_p) &x(t)=\sum\limits_{l=-\infty}^{+\infty} X_l \, e^{\jmath 2 \pi l F_p t}\\
+    X_l \text{ Fourier coefficients} & X_l  =F_p \int_{0}^{T_p} x(t) \, e^{-\jmath 2 \pi l F_p t} d\,t
+  \end{cases}
+\end{equation}
+
+\paragraph{Discrete-time signals}
+\begin{equation}
+  \begin{cases}
+    x(nT) = x_n &x: \Z \to \C\\
+    X(f) & X(f)  = \sum\limits_{-\infty}^{+\infty} x(nT) \, e^{-\jmath 2 \pi f n T} d\,t
+  \end{cases}
+\end{equation}
+with T the quantum period; $T = \frac{1}{F}$
+
+\subsection{Energy and Power of a signal}
+We define the energy of a signal as
+\begin{equation}
+  E_x = \int_{-\infty}^{+\infty} |x(t)|^2 dt
+\end{equation}
+or equivalently, using the \textbf{Parseval theorem}, as
+\begin{equation}
+  E_x = \int_{-\infty}^{+\infty} |X(f)|^2 df
+\end{equation}
+
+We now recall the istantaneous power as
+\begin{equation}
+  M_x = \lim_{u \to +\infty} \frac{1}{2u}\int_{-u}^{u} |x(t)|^2 dt
+\end{equation}
+\begin{definition}
+  The average power of a signal with finite energy is zero.
+\end{definition}
+
+We define the power of periodic signals as
+\begin{equation}
+  M_x = \frac{1}{T_p} \int_{0}^{T_p} |x(t)|^2 dt
+\end{equation}
+which can be rewritten by the parseval theorem as
+\begin{equation}
+  M_x = \sum\limits_{l=-\infty}^{+\infty} |X_l|^2
+\end{equation}
+\subsection{Filters}
+We recall that given a filter with impulse response $g(t)$, we define the output of the filter as
+\begin{esp}
+  y(t) &= (g * x) (t) = \int_{-\infty}^{+\infty} g(t-u) x(u) du \\
+  Y(f) &= G(f) X(f)\quad \quad G(f) = \F[g(t)]
+\end{esp}
+
+\subsection{Bandwidth}
+We define the bandwidth of a continuous time signal as
+\begin{equation}
+  \mathcal{B}_x = \lbrace f \in \R : X(f) \neq 0 \rbrace
+\end{equation}
+and the full bandwidth as $\overline{\mathcal{B_x}} = B_x \bigcup \lbrace -\mathcal{B_x}\rbrace$.
+
+We define the bandwidth of a discrete time signal as
+\begin{equation}
+  \mathcal{B}_x = \lbrace f \in \left[-\frac{1}{2T};\frac{1}{2T}\right] : X(f) \neq 0 \rbrace
+\end{equation}
+and the full bandwidth as $\overline{\mathcal{B_x}} = B_x \bigcup \lbrace -\mathcal{B_x}\rbrace$.
+
+\subsection{Classification of signals}
+We classify signals as
+\begin{description}
+  \item[Band limited signals] if the bandwidth is limited in the frequency domain
+  \item[Baseband signals] if the zero component is included in the band of the signal
+  \item[Passband signals] if the zero component is not included in the band of the signal
+  \item[Narrowband signals] if the band of the signal is much less than the mid frequency of the signal itself
+\end{description}
+
+\subsection{Classification of filters}
+We divide the filters in lowpass, highpass, bandpass, narrowband, notch and allpass as shown in figure [add figure]
+
+\begin{definition}[Uncertainty principle]
+  A continuous signal $x(t)$ cannot have both limited support, in time, and a limited band, in frequency.
+\end{definition}
+\subsection{Practical bandwidth}
+We define the practical bandwidth as $B=f_2 - f_1$ where $f_1 \, f_2$ are the limit frequencies such that $X(f)< \epsilon X_{max}$. If $\epsilon = \frac{1}{\sqrt{2}}$, than the practical band is called as the \emph{3dB band}.
+disegno banda 3dB
+
 
 \section{Random Processes (RPs)}
 All the signals can be modeled as random processes, so we need to review the continuous $rp_s$ and the discrete ones
