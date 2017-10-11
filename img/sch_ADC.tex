@@ -1,0 +1,24 @@
+% \documentclass{standalone}
+% \usepackage{tikz}
+% \usetikzlibrary{automata,arrows,circuits.ee.IEC}
+% \tikzset{blk/.style={draw, minimum size=0.5cm, text width = 1.8 cm}}
+% \tikzset{chan/.style={cylinder,shape aspect = 0.2,draw, minimum size=0.5cm, text width = 1.5 cm}}
+% \begin{document}
+  \begin{tikzpicture}[circuit ee IEC]
+    \node[blk] at (-3,0) (a-al) {Anti aliasing filter};
+    \node at (1,0.5) (c) {};
+    \node[blk,text width = 0.5cm] at (1.5,0) (q) {Q};
+    \node[blk] at (5,0) (ibmap) {IBMAP};
+    \node[blk,text width = 0.5cm] at (8,0) (ps) {P/S};
+    \node[] at (0,0) (sampl) {   };
+
+    \draw (-1.5,0) to [make contact={info={$a(nT_s)$},info'={$T_s$}}] (1,0);
+    \draw[-stealth] (-0.3,0.3) to [bend left] (-0.1,-0.2);
+    \draw[-stealth] (-5,0) -- node[above left]{$a(t)$} (a-al);
+    \draw[-stealth] (a-al) -- node[above]{$a(t)$} (-0.5,0);
+    \draw[-stealth] (0.3,0) -- (q);
+    \draw[-stealth] (q) -- node[above]{$a_q(n T_s)$} (ibmap);
+    \draw[-stealth] (ibmap) -- node[above]{$c(n T_s)$} (ps);
+    \draw[-stealth] (ps) -- node[above]{b} (9,0);
+  \end{tikzpicture}
+% \end{document}

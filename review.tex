@@ -45,6 +45,7 @@ in particular, $\forall t,\tau$
   \begin{cases}
     \text{if } r_{xy}(t,\tau)=0 & \text{ the two processes are \textbf{ORTHOGONAL}}\\
     \text{if } r_{xy}(t,\tau)=m_x \cdot m_y^* & \text{ the two processes are \textbf{UNCORRELATED}}\\
+
   \end{cases}
 \end{equation}
 
@@ -94,14 +95,17 @@ We also derive that the probability that the $x(t)$ is between b and c as
   \mathbb{P}[b<x(t)<c] = Q\left(\frac{b-m_x(t)}{\sigma_x^2(t)}\right)-Q\left(\frac{c-m_x(t)}{\sigma_x^2(t)}\right)
 \end{equation}
 
-ADC figure
-
+\begin{figure} \centering
+  \input{img/sch_ADC.tex}
+  \caption{The scheme for an ADC}
+  \label{}
+\end{figure}
 \section{Quantizer}
 Let the input signal be $a(n T_x) \in \R$, the intermediate output(1) is $a_q(nT_s) \in A_q = \lbrace q_0,\dots,q_{L-1} \rbrace$ with L the number of levels of the quantizer.
 The intermediate output $\hat{c}(n Ts)$ is the codewords, which means a sequence of bits. The final output is a bit stream $\lbrace b_l \rbrace$ with a bit time $T_b$
 
 \subsection{Uniform quantizer}
-An uniform quantizer has L equally spaced levels represented by $b = log_2(L)$ bits. We define 
+An uniform quantizer has L equally spaced levels represented by $b = log_2(L)$ bits. We define
 \begin{itemize}
   \item $\Delta$ as the quantization step size
   \item the threshold $v_i$, $i = 1, 2, \dots, L - 1$, with $v_0 = -\infty \ ,\ v_L = \infty$
@@ -111,24 +115,21 @@ An uniform quantizer has L equally spaced levels represented by $b = log_2(L)$ b
   \begin{itemize}
     \item $e_{sat}$ the error made in the saturation zone. It can be neglegible if we set the quantizer levels such that the signal goes rarely into the saturation region
     \item $e_{gr}$ the quantization error in the granular region, called usually granular error, which is usually the main component.
-    
+
     In uniform quantizer $e_{gr}\sim \U\left(\left[-\frac{\Delta}{2};\frac{\Delta}{2}\right]\right)$
     $\implies \Lambda_q = \frac{M_a}{M_q} \approx \frac{12 \sigma_a^2 }{\Delta^2}$
   \end{itemize}
 \end{itemize}
 
-The P/S, parallel to serial converter, converts the codewords into bitstreams. Hence, the bit frequency is higher and the bit period lower:
-\begin{equation}
-\begin{cases}
-\mathcal{P} vs \mathbb{P}
+The P/S, parallel to serial converter, converts the codewords into bitstreams. Hence, the bit frequency is higher and the bit period lower ($Tb = \frac{Ts}{b}$)
 
-\end{cases}
-kk
-\end{equation}
+Moreover we define the symbol rate as $F=\frac{1}{T} = \frac{R_b}{\log_2(M)}$
 
-Moreover we define the symbol rate as $F = \frac{1}{T} = \frac{R_b}{\log_2(M)}$
-Fig. digital modul
-
+\begin{figure}\centering
+  \input{img/sch_modul.tex}
+  \caption{a digital modulator scheme}
+  \label{}
+\end{figure}
 \subsubsection{Modulations}
 We now introduce the PAM (Pulse Amplitude Modulation) modulation, where each transmitted symbol is defined as the symbol with this map: $a_k \to s_{a_k} (t) = a_k \cdot h_{tx}(t)$. $h_{tx}$ is defined as the impulse shape, usually taking the form of the rect or the raised cosine (ircos).
 The general transmission can be shown as
@@ -142,7 +143,7 @@ at the receiver we obtain
 \end{equation}
 with c the attenuation as the channel is supposed to be distortion free.
 
-With the PAM, the error probability, $\P[\hat{a_k} \neq a_k]$ is
+With the PAM, the error probability, $\Pr[\hat{a_k} \neq a_k]$ is
 \begin{equation}
   P_e = 2 \left(1-\frac{1}{M}\right)\, Q\left(\sqrt{\frac{6}{M^2-1}\cdot \frac{E_s}{N_{_0}}}\right)
 \end{equation}
@@ -156,7 +157,11 @@ The probability to receive a wrong symbol depends on
 \end{enumerate}
 
 \subsubsection{Filtering}
-filtering scheme
+\begin{figure} \centering
+  \input{img/sch_filter.tex}
+  \caption{}
+  \label{}
+\end{figure}
 \paragraph{Time domain}
 In the time domain we find that the principal property of a filter are:
 \begin{esp}
@@ -175,11 +180,19 @@ On the frequency domain the results are
   P_y(f) &= |G(f)|^2 P_x(f)
 \end{esp}
 
-schema realistic receiver
+\begin{figure} \centering
+  \input{img/sch_realistic.tex}
+  \caption{The realistic receiver scheme. The synchronization block can be based on packet communication or continuous transmission}
+  \label{}
+\end{figure}
+
 $a_k$ and $h_{TX}$ depends only on the modulation.
 
-Receiver front end scheme
-
+\begin{figure} \centering
+  \input{img/sch_recFE.tex}
+  \caption{}
+  \label{}
+\end{figure}
 \subsubsection{Advanced modulation techniques}
 The channel usually doesn't have a flat response over all the frequencies, so we need to differenciate the different types of channels. We call \textbf{ frequency selective channel} a channel that varies fastly (w.r.t. the center frequency), so that we use only small bands to consider the subchannel a flat one. We call, instead, a channel \textbf{Wideband} if it can be approximated
 to a flat one for a great frequency band (w.r.t. the center frequency). A wideband channel has some other problems different from the frequency selective channel: it's more subject to ISI, Inter Symbol Interference. For theese type of channels we need suitable Tx and RX filters and we need to equalize the channel, which means that the receiver need to compensate distortion.
@@ -201,8 +214,13 @@ The first is used for high bitrate application, wherease the second is more suit
 \subsection{Multi carrier modulation}
 The main concept is to partition the frequency band in smaller ones with bandwith $B_{_0}=\frac{1}{T_{_0}}$. We will have then many small subchannels with bandwith $B_{_0}$ and centered on a particular frequency: $B_i \in \left(f_i - \frac{B_{_0}}{2};f_i + \frac{B_{_0}}{2}\right)$.
 
+\begin{figure} \centering
+  \input{img/sch_OFDM_tx.tex}
+  \caption{}
+  \label{}
+\end{figure}
 
-OFDM scheme
+
 $T_{_0}=N\,T \gg T$
 
 Given that each subchannel has different gain, the receiver will experience diferent SNR ar each subchannel. OFDM uses different solutions to overcome this:
@@ -278,7 +296,7 @@ We can model each block as bipols or double ones as it can be seen in the figure
 
 In this model we can say that the system has a \textit{noise temperature} ($T_s$) and the receiver RC contribute with a temperature and a figure noise, rispectively $T_a$ and $F_a$, the last one of which is $F_a = 1 + \frac{T_a}{T_0}$.
 
-Using this new approach we can describe the model counting on the following hypothesis: 
+Using this new approach we can describe the model counting on the following hypothesis:
 \begin{enumerate}
 \item The \textit{thermal noise} is AWGN.
 \item All noise sources are in the channel.
@@ -300,7 +318,7 @@ With $\mathcal{P}_{w,RC}$ the \textit{Power Spectral Density} that we can assume
 
 We assume we have a narrowband channel where the frequency response of the channel is almost constant over the frequency band $\mathcal{B}$ of the signal.
 
-We call C the gain of the channel such that 
+We call C the gain of the channel such that
 \begin{equation}
 C = \mid \mathcal{G}_{CH}(f_0) \mid \ \forall f \in \mathcal{B}
 \end{equation}
@@ -380,7 +398,7 @@ Two type of errors:
 \item Detection errors $e_{B_c}$ referring to the offset between $\hat{b_l}$ and $b_l$ such that $\hat{b_l} \neq b_l$
 \end{enumerate}
 
-We know that $e_q$ and $e_{B_c}$ are uncorrelated so that they sum up to the expression 
+We know that $e_q$ and $e_{B_c}$ are uncorrelated so that they sum up to the expression
 \begin{equation}
 e(nT_s) = e_q(nT_s) + e_{B_c}(nT_s)
 \end{equation}
@@ -397,7 +415,7 @@ The Spectral Efficiency is a quantity $\nu = \frac{R_b}{2B_{min}}$ that describe
 
 This quantity has a bound (\textit{Shannon Bound}) which we cna express as:
 \begin{equation}
-\nu \leq \frac{\log (1 + \Gamma)}{2} 
+\nu \leq \frac{\log (1 + \Gamma)}{2}
 \end{equation}
 with $\Gamma = \frac{E_s}{N_0}$ which is the reference SNR.
 
@@ -407,7 +425,7 @@ In Telemedicine and Biomedical Applications we use PSK, QAM and PAM modulations 
 
 \section{Radio Links}
 Every time we want to convey informations through electricmagnetic field in the free space we have a full spectrum of frequencies and we know there are possibly systems working at some frequencies in this spectrum like those who work on Very LOw Frequency - VLF(f = 3Hz), Low Frequency - LF, Medium Frequency - MF, High Frequency - HF, Very High Frequency - VHF, Super High Frequency - SHF, Extra High Frequency - EHF, microWAVES(f = 300GHz, $\lambda$ = mm).
-Hence it's safe to say that the choice of the carrier frequency $f_0$ can be done upon different requirements like some features of the antennas. 
+Hence it's safe to say that the choice of the carrier frequency $f_0$ can be done upon different requirements like some features of the antennas.
 
 Also using radio links we have to be aware of the \textit{propagation effects} like reflections and scattering that bring our signal not to follow just the \textit{Line of Sight path} (LOS) but might differ from this one. In fact r(t) can also follow other paths so that the receiver can receive LOS plus other components deriving from other structures that might attenuate the original signal (i.e buildings). In this case the signal is called \textit{multipath} and in some case it could be also an advantage scenario.
 
@@ -423,13 +441,13 @@ For the transmitter point of view (TX) we can have the power density for a isotr
 \end{cases}
 \end{equation}
 
-We see that the second one PSD is much higher than the previous one. 
+We see that the second one PSD is much higher than the previous one.
 
-For the receiver we have 
+For the receiver we have
 \begin{equation}
 P_{RC} = ? \ A_{Ant,RC} \eta_{Ant,RC}
 \end{equation}
-with $A_{Ant,RC}$ referring to the effective area of the receiving antenna and $\eta_{Ant,RC}$ the efficiency factor. 
+with $A_{Ant,RC}$ referring to the effective area of the receiving antenna and $\eta_{Ant,RC}$ the efficiency factor.
 
 In this case we have:
 \begin{equation}
@@ -437,7 +455,7 @@ In this case we have:
 \text{Power Density: } P_{RC} &= P_{TX}\ \frac{g_{Ant,TX}}{4pi(d^2)}\ A_{Ant,RC}\ \eta_{Ant,RC}\\
 \text{Antenna's Gain: } g_{Ant} &= \frac{4pi}{\gamma^2} A_{Ant,RC} \ \eta_{Ant,RC}
 \end{cases}
-\end{equation} 
+\end{equation}
 
 We need a smaller antenna to have the same gain $g_{CH}$ at a higher carrier frequency $f_0$:
 \begin{equation}
@@ -446,12 +464,12 @@ We need a smaller antenna to have the same gain $g_{CH}$ at a higher carrier fre
 \text{Channel's Attenuation: } a_{CH} = \frac{4pi(d/\gamma)^2}{g_{Ant,TX}\ g_{Ant,RC}}
 \end{cases}
 \end{equation}
-With $t_0$ the propagation delay 
+With $t_0$ the propagation delay
 
 Certainly $a_{CH}$ can be written in the decibel scale as:
 \textbf{Copia descrizione in decibel da pitt}
 
-In conclusion we can highlight that using radio links we have less attenuation when we increase the distance and an advantage also in the carrier frequency but we have to face the fact that we need a much larger bandwidth since we are not conveying electricalmagnetic waves into a medium.  
+In conclusion we can highlight that using radio links we have less attenuation when we increase the distance and an advantage also in the carrier frequency but we have to face the fact that we need a much larger bandwidth since we are not conveying electricalmagnetic waves into a medium.
 
 \subsubsection{Propagation Effects }
 
@@ -459,7 +477,7 @@ In conclusion we can highlight that using radio links we have less attenuation w
 \item Path Loss $\Rightarrow$ attenuation
 \begin{itemize}
 \item Distance TX - RC (Typical values: 100 - 1000 m)
-\item Propagation effects of the channel 
+\item Propagation effects of the channel
 \end{itemize}
 \item Shadowing $\Rightarrow$ attenuation
 \begin{itemize}
@@ -472,10 +490,8 @@ As we previously said, if ther are obstacles in the space of free-moving of the 
 
 $$\text{Path loss and shadowing = large scale propagation effects}$$
 \item Multipath fading: constructive and distructive addition of the multipath signal components (rapid phase changes).
-Typical distances are very very short like in the range of wavelength of the wave travelling and considered. 
+Typical distances are very very short like in the range of wavelength of the wave travelling and considered.
 \end{enumerate}
 
 \textbf{Inserisci grafico 2}
-Linear model if we consider just the path loss fenomenum but if we consider both the path loss and the shadowing we have a model with a variable characteristic. If we add also the multipath factor the function $(\frac{P_{RC}}{P_{TX}})_{dB}$ will have even more flactuations    
-
-
+Linear model if we consider just the path loss fenomenum but if we consider both the path loss and the shadowing we have a model with a variable characteristic. If we add also the multipath factor the function $(\frac{P_{RC}}{P_{TX}})_{dB}$ will have even more flactuations

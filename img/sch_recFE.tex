@@ -1,0 +1,14 @@
+% \documentclass{standalone}
+% \usepackage{tikz}
+% \usetikzlibrary{automata,arrows}
+
+% \begin{document}
+  \begin{tikzpicture}
+    \node[blk] at (-2,0) (b) {$h_{RC}$};
+    \node[blk] at (2,0) (q) {Detector};
+
+    \draw[-stealth] (-4.5,0) -- node[above]{$r(t)$} (b);
+    \draw[-stealth] (b) -- node[above] {$t_0 + kT$} (q);
+    \draw[-stealth] (q) -- node[above]{$\hat{a_k}$} (4,0);
+  \end{tikzpicture}
+% \end{document}

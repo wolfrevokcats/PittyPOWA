@@ -1,0 +1,30 @@
+% \documentclass{standalone}
+% \usepackage{tikz}
+% \usetikzlibrary{automata,arrows}
+%
+% \begin{document}
+  \begin{tikzpicture}
+    \node[draw] at (-3,0) (mod) {QAM modulator};
+    \node[draw] at (0,0) (sp) {S/P}; %rectangle
+
+    \node[draw] at (4,4) (q1) {digital demodulator};
+    \node[draw] at (4,2) (q2) {digital demodulator};
+    \node       at (4,0) (qi) {$\vdots$};
+    \node[draw] at (4,-2) (qn) {digital demodulator};
+    % \node[draw, rectangle] at (4,4)  (4,-2) (ibmap) {IBMAP};
+    \node[draw] at (7,0) (ps) {P/S};
+
+    \draw[-stealth] (-5,0) -- node[above]{$b_l$} (mod);
+    \draw[-stealth] (2,4) -- node[below]{$T$} (q1);
+    \draw[-stealth] (2,2) -- node[below]{$T$} (q2);
+    \draw[-stealth] (2,0) -- node[below]{$T$} (3,0);
+    \draw[-stealth] (2,-2) -- node[below]{$T$} (qn);
+
+    \draw[-stealth] (q1) -- node[below]{$T$} (7,4);
+    \draw[-stealth] (q2) -- node[below]{$T$} (7,2);
+    \draw[-stealth] (5.5,0) -- node[below]{$T$} (6.6,0);
+    \draw[-stealth] (qn) -- node[below]{$T$} (7,-2);
+    % \draw[-stealth] (ibmap) -- node[above]{$c(n T_s)$} (ps);
+    \draw[-stealth] (ps) -- node[above]{b} (9,0);
+  \end{tikzpicture}
+% \end{document}

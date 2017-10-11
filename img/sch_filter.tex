@@ -1,0 +1,12 @@
+% \documentclass{standalone}
+% \usepackage{tikz}
+% \usetikzlibrary{automata,arrows}
+%
+% \begin{document}
+  \begin{tikzpicture}
+    \node[blk] at (-2,0) (b) {LTI};
+
+    \draw[-stealth] (-4,0) -- node[above]{$x(t)$} (b);
+    \draw[-stealth] (b) -- node[above] {$y(t)$} (0,0);
+  \end{tikzpicture}
+% \end{document}
