@@ -1,0 +1,481 @@
+\chapter{Review on signals}
+
+lez lunedì
+
+\section{Random Processes (RPs)}
+All the signals can be modeled as random processes, so we need to review the continuous $rp_s$ and the discrete ones
+
+\begin{esp}
+  x: \quad &\R \times \Omega \to \R \\
+  x:  \quad& \Z \times \Omega \to \R
+\end{esp}
+
+grafico t0
+
+we can determinate the rp giving its probability density function(PDF), in particular we define some property of it:
+\begin{itemize}
+  \item mean $m_x(t)=\E[x(t)]$
+  \item statistical power $M_x(t)=\E[|x(t)|^2]$
+  \item autocorrelation function $r_x(t,\tau)=\E[x(t)\cdot x^*(t-\tau)]$
+\end{itemize}
+One particular property of the autocorrelation function is that $r_x(t,0)=M_x(t)$
+
+\section{Stationary processes}
+A r.p. is said to be stationary with respect to a statistical description(e.g. mean, autocorrelation) if such desctiption is invatiant to any time sgift. That is all $rp_s \, x_1(t) = x(t-t_{_0})$ with arbitrary$t_0$ have the same statistical description as x(t).
+
+\subsection{Wide Sense Statistical process (WSS)}
+$x(t,\omega)$ is stationary both in mean and in autocorrelation $\implies r_x(t,\tau) = r_x(\tau)$, which means that the time dependency drops
+
+\subsection{Cyclostationary processes}
+A r.p. is said to be cyclostationary if that description (***) is invariant to a time sgift of the signal by some quantity $T_c$ that is called the \emph{cyclostationary period}.
+
+\subsection{Ergodic processes}
+A stationary random process (in mean) is said to be ergodic in mean if the time average converges to its statistical mean. In some sense
+\begin{equation}
+  \frac{1}{2 u} \int_{-u}^u x(\omega,t) \partial t \stackrel{u \to +\infty}{\rightarrow} m_x \forall \omega \in \Omega
+\end{equation}
+
+\subsection{Cross correlation function}
+Given a pair of $rp_s$ $x(t)$ and $y(t)$, we have that
+\begin{equation}
+  r_{xy}(t,\tau) = \E[x(t) \cdot y^*(t-\tau)]
+\end{equation}
+in particular, $\forall t,\tau$
+\begin{equation}
+  \begin{cases}
+    \text{if } r_{xy}(t,\tau)=0 & \text{ the two processes are \textbf{ORTHOGONAL}}\\
+    \text{if } r_{xy}(t,\tau)=m_x \cdot m_y^* & \text{ the two processes are \textbf{UNCORRELATED}}\\
+  \end{cases}
+\end{equation}
+
+\subsection{Power spectral density (PSD)}
+Let $x(t)$ be WSS, then we define the PSD of $x(t)$ as the Fourier transform of the autocorrelation function.
+\begin{equation}P_x(f)=
+  \begin{cases}
+    \int_{-\infty}^{+\infty} r_x(\tau)e^{-\jmath 2\pi f \tau} \partial \tau \\
+    \sum\limits_{k=-\infty}^{+\infty} r_x(k T)e^{-\jmath 2\pi f k T}
+  \end{cases}
+\end{equation}
+\subsection{PSD properties}
+Some important properties of the PSD are
+\begin{enumerate}
+  \item $P_x(f)\in \R \forall f$
+  \item $P_x(f)\ge 0 \forall f$
+  \item Its integral gives $M_x$
+  \item For real valued processes $P_x(f)=P_x(-f)$
+\end{enumerate}
+
+
+We now define the band of the signal based on the PSD:
+
+\begin{description}
+  \item[FULLBAND] of a WSS r.p. $x(t)$ is the support of its PSD, which means
+  $$\hat{\B_x} = \lbrace f \in \R : P_x(f)>0\rbrace$$
+  \item[BAND] of a real valued WSS r.p. $x(t)$ is the portion of the support of the positive frequencies.
+  $$\hat{\B_x} = \lbrace f>0 : P_x(f)>0\rbrace$$
+\end{description}
+
+\section{White random processes}
+A WSS r.p. $x(t)$, whose PSD is constant over the whole frequencies axis ($P_x(f) = P_0 \forall f \in \R$)
+\begin{equation}
+  \implies
+  \begin{cases}
+    r_x(\tau) = P_0 \cdot \delta(\tau) \\
+    r_x(m) = \frac{P_0}{T} \cdot \delta(m)
+  \end{cases}
+\end{equation}
+\subsection{Gaussian processes}
+A real valued rp is said to be Gaussian if all the $r.v._s$ that we can extract from the overall r.p., taking an arbitrary number of variables are gaussian vectors.
+\begin{equation}
+  x(t)\sim \mathcal{N} (m_x(t),\sigma^2_x(t)) \quad \text{where } \sigma_x(t) =  \sqrt{M_x(t)-m_x^2(t)}
+\end{equation}
+We also derive that the probability that the $x(t)$ is between b and c as
+\begin{equation}
+  \mathbb{P}[b<x(t)<c] = Q\left(\frac{b-m_x(t)}{\sigma_x^2(t)}\right)-Q\left(\frac{c-m_x(t)}{\sigma_x^2(t)}\right)
+\end{equation}
+
+ADC figure
+
+\section{Quantizer}
+Let the input signal be $a(n T_x) \in \R$, the intermediate output(1) is $a_q(nT_s) \in A_q = \lbrace q_0,\dots,q_{L-1} \rbrace$ with L the number of levels of the quantizer.
+The intermediate output $\hat{c}(n Ts)$ is the codewords, which means a sequence of bits. The final output is a bit stream $\lbrace b_l \rbrace$ with a bit time $T_b$
+
+\subsection{Uniform quantizer}
+An uniform quantizer has L equally spaced levels represented by $b = log_2(L)$ bits. We define 
+\begin{itemize}
+  \item $\Delta$ as the quantization step size
+  \item the threshold $v_i$, $i = 1, 2, \dots, L - 1$, with $v_0 = -\infty \ ,\ v_L = \infty$
+  \item $v_{sat}$ as the saturation signal, which is the intensity over which the signal is always captured as one of the two extremal thresholds.
+  \item $\Lambda_q = \frac{\E[a^2(nTs)]}{\E[e_q^2(nTs)]}$ the SNR of the quantizer.
+  \item $e_q = a_q(n Ts) - a(n Ts)$ the quantization error which can be divided into
+  \begin{itemize}
+    \item $e_{sat}$ the error made in the saturation zone. It can be neglegible if we set the quantizer levels such that the signal goes rarely into the saturation region
+    \item $e_{gr}$ the quantization error in the granular region, called usually granular error, which is usually the main component.
+    
+    In uniform quantizer $e_{gr}\sim \U\left(\left[-\frac{\Delta}{2};\frac{\Delta}{2}\right]\right)$
+    $\implies \Lambda_q = \frac{M_a}{M_q} \approx \frac{12 \sigma_a^2 }{\Delta^2}$
+  \end{itemize}
+\end{itemize}
+
+The P/S, parallel to serial converter, converts the codewords into bitstreams. Hence, the bit frequency is higher and the bit period lower:
+\begin{equation}
+\begin{cases}
+\mathcal{P} vs \mathbb{P}
+
+\end{cases}
+kk
+\end{equation}
+
+Moreover we define the symbol rate as $F = \frac{1}{T} = \frac{R_b}{\log_2(M)}$
+Fig. digital modul
+
+\subsubsection{Modulations}
+We now introduce the PAM (Pulse Amplitude Modulation) modulation, where each transmitted symbol is defined as the symbol with this map: $a_k \to s_{a_k} (t) = a_k \cdot h_{tx}(t)$. $h_{tx}$ is defined as the impulse shape, usually taking the form of the rect or the raised cosine (ircos).
+The general transmission can be shown as
+\begin{equation}
+  s_{tx}(t) = \sum\limits_{k=-\infty}^{+\infty} a_k \, h_{tx}(t - kT)
+\end{equation}
+
+at the receiver we obtain
+\begin{equation}
+  r(t) = s_{RC}(t) + w_{RC}(t) = c \, s_{TX}(t) + w_{RC}(t)
+\end{equation}
+with c the attenuation as the channel is supposed to be distortion free.
+
+With the PAM, the error probability, $\P[\hat{a_k} \neq a_k]$ is
+\begin{equation}
+  P_e = 2 \left(1-\frac{1}{M}\right)\, Q\left(\sqrt{\frac{6}{M^2-1}\cdot \frac{E_s}{N_{_0}}}\right)
+\end{equation}
+with M the cardinality of the modulation and $N_{_0}$ the PSD of the noise.
+
+The probability to receive a wrong symbol depends on
+\begin{enumerate}
+  \item the cardinality of the modulation scheme
+  \item $E_s$ the average signal energy
+  \item $N_{_0}$ the PSD of the noise
+\end{enumerate}
+
+\subsubsection{Filtering}
+filtering scheme
+\paragraph{Time domain}
+In the time domain we find that the principal property of a filter are:
+\begin{esp}
+  m_y &= m_x \, \int_{-\infty}^{+\infty} g(t dt) \\
+  r_{yx}(\tau)&=(g * r_x) (\tau) \\
+  r_y(\tau) &=(g_{-}^{*} * r_{yx}) (\tau) \stackrel{(1)}{=} \left[\left(g_{-}^{*} * g \right)* r_x\right] (\tau)
+\end{esp}
+where $g_{-}^{*}(t) = g^{*}(-t)$
+
+\paragraph{Frequency domain}
+On the frequency domain the results are
+\begin{esp}
+  m_y &= m_x \, G(0) \\
+  \P_{yx}(f) &= G(f) \P_x(f) \\
+  P_{xy}(f) &= G^{*}(f) \P_{x}(f)\\
+  P_y(f) &= |G(f)|^2 P_x(f)
+\end{esp}
+
+schema realistic receiver
+$a_k$ and $h_{TX}$ depends only on the modulation.
+
+Receiver front end scheme
+
+\subsubsection{Advanced modulation techniques}
+The channel usually doesn't have a flat response over all the frequencies, so we need to differenciate the different types of channels. We call \textbf{ frequency selective channel} a channel that varies fastly (w.r.t. the center frequency), so that we use only small bands to consider the subchannel a flat one. We call, instead, a channel \textbf{Wideband} if it can be approximated
+to a flat one for a great frequency band (w.r.t. the center frequency). A wideband channel has some other problems different from the frequency selective channel: it's more subject to ISI, Inter Symbol Interference. For theese type of channels we need suitable Tx and RX filters and we need to equalize the channel, which means that the receiver need to compensate distortion.
+
+\section{Other modulations}
+PAM, QAM and PSK, for example, are called single carrier modulations as they depend only on one center frequency $f_0$. We could use, instead, other types of modulations:
+\begin{enumerate}
+  \item Multi carrier modulations
+
+\begin{enumerate}
+  \item OFDM, the Orthogonal Frequency Division Multiplexing
+  \item Vector coding
+\end{enumerate}
+\item Spread spectrum
+\end{enumerate}
+
+The first is used for high bitrate application, wherease the second is more suitable for low rate/low power application
+
+\subsection{Multi carrier modulation}
+The main concept is to partition the frequency band in smaller ones with bandwith $B_{_0}=\frac{1}{T_{_0}}$. We will have then many small subchannels with bandwith $B_{_0}$ and centered on a particular frequency: $B_i \in \left(f_i - \frac{B_{_0}}{2};f_i + \frac{B_{_0}}{2}\right)$.
+
+
+OFDM scheme
+$T_{_0}=N\,T \gg T$
+
+Given that each subchannel has different gain, the receiver will experience diferent SNR ar each subchannel. OFDM uses different solutions to overcome this:
+\begin{itemize}
+  \item Power loading, where the transdmitter allocates more power over the best subchannel
+  \item Bit loading where the transmitter sends more bits over the best subchannel
+\end{itemize}
+
+\subsubsection{Spread Spectrum}
+This technique is used in GPS, GALILEO,UMTS and Bluetooth, for example. The idea is to use more bandwidth than the one required to transmit a digital stream with symbol period T: $B \gg B_{min}=\frac{1}{T}$.
+
+There are some pros and cons to the usage of Spread Spectrum. The main pros are
+\begin{itemize}
+  \item Low probability to intercept the signal
+  \item Resistance to a jamming signal
+  \item Resistance to ISI
+  \item Multiple access
+  \item Better localization abilities
+\end{itemize}
+We can cite three main types of spread spectrum: the \textbf{direct sequence}, the \textbf{time hopping} and the \textbf{frequency hopping}
+
+\section{Transmission media}
+We now consider two main transmission media: the transmission lines and cables and the optical fibers.
+
+The transmission lines have a frequency response that can be written as
+\begin{equation}
+  G_{ch}(f) = e^{-(1+\jmath)\sqrt{\frac{f}{f_c}} - \jmath 2 \pi f t_c}
+\end{equation}
+where
+\begin{itemize}
+  \item $f_c = \left(\frac{1}{kd}\right)^2$  ??? aggiungere qualcosa forse
+  \item $t_c = d \sqrt{l c}$ is the propagation delay and depends on the distance (d), the cable capacitance (c) and the cable inductance (l).
+\end{itemize}
+
+The attenuation can be rewritten as
+\begin{esp}
+  (a_{ch}(f))_{dB} = (\tilde{a_{ch}(f)})_{dB/km} \, d_{km}
+\end{esp}
+and the specific line attenuation can be rewritten as
+\begin{equation}
+  (\tilde{a_{ch}(f)})_{dB/km} \approx 8,68 \alpha(f) = a_{ch}(f_1) \sqrt{\frac{f}{f_1}}
+\end{equation}
+
+Two things can be remarked on transmission over cables: if twisted pairs are used, there's a problem  on the cross talk, which means that the electrical signal in one cable induces currents on the nearby cables producing an interference. We define the cross talk interference as
+\begin{description}
+  \item[NEXT] Near end cross talk, if the transmitter and receiver are at the same side
+  \item[FEXT] far end cross talk, if the transmitter and receiver are at the opposite side
+\end{description}
+\subsubsection{Optical fibers}
+The channel gain for the optical fibers can be written as
+\begin{equation}
+  G_{ch}(f) = A_F^{-1} e^{-2(\pi f \sigma_F)^2 - \jmath 2 \pi f t_F}
+\end{equation}
+where
+\begin{itemize}
+  \item $A_f$ is the attenuation coefficient
+  \item $\sigma_F$ is the dispersion coefficient and depends on the material, the geometry of the fiber and linearly on the distance
+  \item $t_F = \frac{d \, n}{c}$ is the propagation delay and depends on the distance and the light speed on the fiber material.
+\end{itemize}
+In general the bandwidth carried by the optical fiber can be modeled as $B_{FIB} \propto \frac{1}{\sigma_{F}}$
+
+
+\section{Characterization channels}
+
+\textbf{Insert the block figure}
+
+We can make an equivalent model of the previous one by representing it as an electrical one.
+We can model each block as bipols or double ones as it can be seen in the figure below.
+
+
+\subsection{Electrical Model}
+\textbf{Insert the electrical model}
+
+In this model we can say that the system has a \textit{noise temperature} ($T_s$) and the receiver RC contribute with a temperature and a figure noise, rispectively $T_a$ and $F_a$, the last one of which is $F_a = 1 + \frac{T_a}{T_0}$.
+
+Using this new approach we can describe the model counting on the following hypothesis: 
+\begin{enumerate}
+\item The \textit{thermal noise} is AWGN.
+\item All noise sources are in the channel.
+\item We consider the noise contributions at the channel output, coinciding with the receiver input.
+\end{enumerate}
+
+With these assumptions we can describe the \textit{Effective Temperature} $T_{eff,RC}$ such that:
+\begin{equation}
+T_{eff,RC} = T_s + T_a
+\end{equation}
+with $T_s = T_0 = 290K$
+
+We want to quantify the noise power by the \textit{Power Density of the noise} $P_{w,RC}(f)$ such that
+$$P_{w,RC} (f) = \frac{k_b \ T_{eff,RC}}{2}$$
+With $\mathcal{P}_{w,RC}$ the \textit{Power Spectral Density} that we can assume constant
+\begin{equation}
+\mathcal{P}_{w,RC} = P_{w,RC}\ \frac{\mid Z_{RC,in}(f)\mid ^2}{R_{RC,in}(f)} = \frac{N_0}{2}
+\end{equation}
+
+We assume we have a narrowband channel where the frequency response of the channel is almost constant over the frequency band $\mathcal{B}$ of the signal.
+
+We call C the gain of the channel such that 
+\begin{equation}
+C = \mid \mathcal{G}_{CH}(f_0) \mid \ \forall f \in \mathcal{B}
+\end{equation}
+
+It's also important to remember that the channel induce some delay as it can be seen in the expression
+\begin{equation}
+t_0 = -\frac{1}{2pif_0} \phase{\mathcal{G}_{CH}(f_0)}
+\end{equation}
+Where $f_0$ is the carrier frequency so that $s_{RC}(t) = C\ s_{TX}(t - t_0)$.
+
+\paragraph{Signal to Noise Ratio (SNR)}
+It can be considered two different approaches to infer this kind of parameter:
+\begin{enumerate}
+\item Statistical SNR $\Gamma_{Stat}$
+\item Electrical SNR $\Gamma_{Elec}$
+\end{enumerate}
+
+In case of (A) ergodicity of the signals and (B) matching between input and output impedences we can say that the two previous SNRs are equal.
+\begin{equation}
+\Gamma_{Stat} \doteq \Gamma_{Elec}
+\end{equation}
+
+\subparagraph{Statistical SNR}
+We are interested in the statistical useful components of our received signal, as we see $r(t) = s_{RC} (t) + w_{RC} (t)$.
+
+We so define its \text{Statistical Power} $M_{s_{RC}}$ such that
+\begin{equation}
+M_{s_{RC}} = C^2 \ M_{s_{TX}}
+\end{equation}
+
+If we are interested on the noise component we can describe its \textit{Statistical Power} as:
+\begin{equation}
+M_{w_{RC}} = \int_\mathcal{B} \mathcal{P}_{w_{RC}}(f) df = \frac{N_0}{2}\ 2B = N_0\ B
+\end{equation}
+
+So that
+\begin{equation}
+\text{Statistical SNR:} \Gamma = \frac{M_{s_{RC}}}{M_{w_{RC}}} = \frac{M_{s_{TX}}\ C^2}{N_0\ B}
+\end{equation}
+
+
+\subparagraph{Electrical SNR}
+Given the transmission power $P_{TX}$ and the attenuation $a_{CH}$ of a channel which introduces some kind of noise, we can firmly say that this last parameter is related with the channel's gain such that:
+\begin{equation}
+a_{ch} = \frac{1}{g_{ch}}
+\end{equation}
+Now it can be discovered the received power $P_{RC}$ as:
+\begin{esp}
+P_{RC} &= \frac{P_{TX}}{a_{CH}} \text{, so that}\\
+P_{w,RC} (f) &= \frac{k_B \ T_{eff,RC} (f)}{2}
+\end{esp}
+
+And the electrical SNR is:
+\begin{esp}
+\Gamma_{Elec} &= \frac{P_{RC}}{P_{w,RC}\ 2B} \\&= \frac{P_{TX}}{k_B \ T_{eff,RC}\ B a_{CH}}
+\end{esp}
+
+
+In the logarithmical scale we can say that the electrical SNR is equal to the following \textit{Link Budget Expression}
+\begin{esp}
+(\Gamma_{Elec})_{dB} = 10\log \Gamma_{Elec} \\& = (P_{TX})_{dB} - (a_{CH})_{dB} - 10\log (10^9 \ k_B T_0) - 10\log (\frac{T_{eff,RC}}{T_0}) - 10\log (B)_{MHz}
+\end{esp}
+
+And we can say that $T_s = T_0$ and $10 \log (\frac{T_{eff,RC}}{T_0}) = (F_A)_{dB}$
+
+\subsection{Full communication Link}
+Add the figure of the communication link.
+
+\begin{equation}
+\text{Overall System Error: } \Gamma_{PCM} = \frac{E[\mid a(t)\mid ^2]}{E[\mid \widetilde{a}(t) - a(t)\mid ^2]}
+\end{equation}
+
+\subsection{Errors}
+Two type of errors:
+\begin{enumerate}
+\item Quantization errors $e_q$
+\item Detection errors $e_{B_c}$ referring to the offset between $\hat{b_l}$ and $b_l$ such that $\hat{b_l} \neq b_l$
+\end{enumerate}
+
+We know that $e_q$ and $e_{B_c}$ are uncorrelated so that they sum up to the expression 
+\begin{equation}
+e(nT_s) = e_q(nT_s) + e_{B_c}(nT_s)
+\end{equation}
+
+Using these expressions we can say that:
+\begin{esp}
+\text{Overall System Error: } \Gamma_{PCM} &= \frac{E[\mid a(t)\mid ^2]}{E[\mid \widetilde{a}(t) - a(t)\mid ^2]} \\&= \frac{M_q}{M_{e_q} + M_{e_{B_c}}}
+\end{esp}
+
+\textbf{Insert the expression A)}
+
+\subsection{Spectral Efficiency}
+The Spectral Efficiency is a quantity $\nu = \frac{R_b}{2B_{min}}$ that describe how many bits per time are sent with the conventional $B_{min}$ and dimensionally is [bit/s/Hz], referring to the rate due to a specific band.
+
+This quantity has a bound (\textit{Shannon Bound}) which we cna express as:
+\begin{equation}
+\nu \leq \frac{\log (1 + \Gamma)}{2} 
+\end{equation}
+with $\Gamma = \frac{E_s}{N_0}$ which is the reference SNR.
+
+\textbf{Insert the graphic}
+
+In Telemedicine and Biomedical Applications we use PSK, QAM and PAM modulations quite often, but also ORTHOGONAL and Bi-ORTHOGONAL. These last ones seem not so efficient but can reach the very low probability of error for lower SNR using lower power to get the same SNR and reach the same $P_{bit} = 10^-6$).
+
+\section{Radio Links}
+Every time we want to convey informations through electricmagnetic field in the free space we have a full spectrum of frequencies and we know there are possibly systems working at some frequencies in this spectrum like those who work on Very LOw Frequency - VLF(f = 3Hz), Low Frequency - LF, Medium Frequency - MF, High Frequency - HF, Very High Frequency - VHF, Super High Frequency - SHF, Extra High Frequency - EHF, microWAVES(f = 300GHz, $\lambda$ = mm).
+Hence it's safe to say that the choice of the carrier frequency $f_0$ can be done upon different requirements like some features of the antennas. 
+
+Also using radio links we have to be aware of the \textit{propagation effects} like reflections and scattering that bring our signal not to follow just the \textit{Line of Sight path} (LOS) but might differ from this one. In fact r(t) can also follow other paths so that the receiver can receive LOS plus other components deriving from other structures that might attenuate the original signal (i.e buildings). In this case the signal is called \textit{multipath} and in some case it could be also an advantage scenario.
+
+We could use the Maxwell equations but we prefer to use a simplified model:
+\paragraph{Narrowband Model Channel}
+We're referring to a scenario where there are two antennas, a trasmitting and a receiving one ($Ant,Tx$ and $Ant,RC$).
+
+For the transmitter point of view (TX) we can have the power density for a isotropic antenna differing from a directional one such that:
+\begin{equation}
+\begin{cases}
+\Phi_0 = \frac{P_{TX}}{4pi(d^2)} \ \text{ \textit{for an isotropic antenna}}\\
+\Phi = \Phi_0 \ g_{Ant,Tx} \ \text{ \textit{for a directional antenna}}
+\end{cases}
+\end{equation}
+
+We see that the second one PSD is much higher than the previous one. 
+
+For the receiver we have 
+\begin{equation}
+P_{RC} = ? \ A_{Ant,RC} \eta_{Ant,RC}
+\end{equation}
+with $A_{Ant,RC}$ referring to the effective area of the receiving antenna and $\eta_{Ant,RC}$ the efficiency factor. 
+
+In this case we have:
+\begin{equation}
+\begin{cases}
+\text{Power Density: } P_{RC} &= P_{TX}\ \frac{g_{Ant,TX}}{4pi(d^2)}\ A_{Ant,RC}\ \eta_{Ant,RC}\\
+\text{Antenna's Gain: } g_{Ant} &= \frac{4pi}{\gamma^2} A_{Ant,RC} \ \eta_{Ant,RC}
+\end{cases}
+\end{equation} 
+
+We need a smaller antenna to have the same gain $g_{CH}$ at a higher carrier frequency $f_0$:
+\begin{equation}
+\begin{cases}
+\text{Frequency Response: } \mathcal{G}_{CH} (f) = \sqrt{g_{ch}} e^{-j2pif{t_0}}\\
+\text{Channel's Attenuation: } a_{CH} = \frac{4pi(d/\gamma)^2}{g_{Ant,TX}\ g_{Ant,RC}}
+\end{cases}
+\end{equation}
+With $t_0$ the propagation delay 
+
+Certainly $a_{CH}$ can be written in the decibel scale as:
+\textbf{Copia descrizione in decibel da pitt}
+
+In conclusion we can highlight that using radio links we have less attenuation when we increase the distance and an advantage also in the carrier frequency but we have to face the fact that we need a much larger bandwidth since we are not conveying electricalmagnetic waves into a medium.  
+
+\subsubsection{Propagation Effects }
+
+\begin{enumerate}
+\item Path Loss $\Rightarrow$ attenuation
+\begin{itemize}
+\item Distance TX - RC (Typical values: 100 - 1000 m)
+\item Propagation effects of the channel 
+\end{itemize}
+\item Shadowing $\Rightarrow$ attenuation
+\begin{itemize}
+\item Absorption
+\item Reflection
+\item Scattering
+\end{itemize}
+
+As we previously said, if ther are obstacles in the space of free-moving of the signal it can be scomposed. The typical distance are the lenghts of the obstacles and this express a high dependence from the enviroment. In fact if we refer to the outdoor environment the distance (d) from TX and RC is between 10 to 100 m, whereas for the indoor one d $\leq$ 10 m.
+
+$$\text{Path loss and shadowing = large scale propagation effects}$$
+\item Multipath fading: constructive and distructive addition of the multipath signal components (rapid phase changes).
+Typical distances are very very short like in the range of wavelength of the wave travelling and considered. 
+\end{enumerate}
+
+\textbf{Inserisci grafico 2}
+Linear model if we consider just the path loss fenomenum but if we consider both the path loss and the shadowing we have a model with a variable characteristic. If we add also the multipath factor the function $(\frac{P_{RC}}{P_{TX}})_{dB}$ will have even more flactuations    
+
+
