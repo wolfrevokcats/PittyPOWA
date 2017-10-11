@@ -1,0 +1,35 @@
+% \documentclass{standalone}
+% \usepackage{tikz}
+% \usetikzlibrary{automata,arrows}
+% \tikzset{blk/.style={draw, minimum size=0.5cm, text width = 1.5 cm}}
+% \tikzset{chan/.style={draw, minimum size=0.5cm, text width = 1.5 cm}}
+% \begin{document}
+% $\mathcal{P}$ vs $\math{P}$
+  \begin{tikzpicture}
+
+    \node[blk] at (-4,-2) (sync) {Synchroni-zator};
+    \node[blk] at (0,-2) (chanE) {Channel extimator};
+    \node[blk] at (0,-3) (timeE) {Time extimator};
+    \node[blk] at (0,-4) (freqE) {Frequency extimator};
+    \node[blk] at (2,0) (sig) {Signal Projector};
+    \node[blk] at (5,0) (q) {Detector};
+    \node at (-7,-6.5) (bla) {} ;
+    \node at (-7,1) (1bla) {} ;
+
+    % \draw[-stealth] (-4.5,0) -- node[above]{$r(t)$} (q);
+    \draw[-stealth] (-7,0) -- node[above left]{$r(t)$} (sig);
+    \draw[-stealth] (q) -- node[above]{$\hat{a_k}$}  (7,0);
+    \draw[-stealth] (sync) -- (-2.5,-2);
+    \draw[-stealth] (-6,0) -- (-6,-2) -- (sync);
+    \draw[-stealth] (-2,0) -- (-2,-2) -- (chanE);
+    \draw[-stealth] (-2,0) -- (-2,-3) -- (timeE);
+    \draw[-stealth] (-2,0) -- (-2,-4) -- (freqE);
+    \draw[-stealth] (sig) -- node[above] {$\hat{r_k}$} (q);
+    \draw[-stealth] (chanE) -- (2,-2) -- (sig);
+    \draw[-stealth] (chanE) -- node[above]{$t_{_0}$} (2.3,-2) -- (2.3,-0.6);
+    \draw[-stealth] (chanE) -- (2.3,-2) -- (2.3,-5) -- (-4,-5);
+    \draw[-stealth] (timeE) -- (2.3,-3) -- (2.3,-4.7) -- (-4,-4.7);
+    \draw[dashed, red] (-2.6,1) rectangle (6.7,-6);
+    % \draw[-stealth] (q) -- node[above]{$\hat{a_k}$} (4,0);
+  \end{tikzpicture}
+% \end{document}

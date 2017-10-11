@@ -1,0 +1,13 @@
+% \documentclass{standalone}
+% \usepackage{tikz}
+% \usetikzlibrary{automata,arrows}
+%
+% \begin{document}
+  \begin{tikzpicture}
+    \node[blk, text width = 2cm] at (-2,0) (b) {Digital demodulator};
+    \node[chan] at (2,0) (q) {Channel};
+
+    \draw[-stealth] (-4.5,0) -- node[above]{$a_k$} (b);
+    \draw[-stealth] (b) -- node[above] {$s_{TX}(t)$} (q);
+  \end{tikzpicture}
+% \end{document}
