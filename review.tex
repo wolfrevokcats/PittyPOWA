@@ -93,10 +93,67 @@ We divide the filters in lowpass, highpass, bandpass, narrowband, notch and allp
   A continuous signal $x(t)$ cannot have both limited support, in time, and a limited band, in frequency.
 \end{definition}
 \subsection{Practical bandwidth}
-We define the practical bandwidth as $B=f_2 - f_1$ where $f_1 \, f_2$ are the limit frequencies such that $X(f)< \epsilon X_{max}$. If $\epsilon = \frac{1}{\sqrt{2}}$, than the practical band is called as the \emph{3dB band}.
+We define the practical bandwidth as $B=f_2 - f_1$ where $f_1 \, f_2$ are the limit frequencies such that $X(f)< \epsilon X_{max}$.
+There are three main criterion to define the practical bandwidth:
+\begin{enumerate}
+  \item The amplitude criterion
+  \item The energy criterion
+  \item The First-zero crossing criterion
+\end{enumerate}
+\subsubsection{Amplitude criterion}
+In the amplitude criterion we evaluate the bandwidth such that $X(f) \ge \epsilon \, X_{max}$, where $\epsilon$ is to be determined.
+If $\epsilon = \frac{1}{\sqrt{2}}$, than the practical band is called as the \emph{3dB band}; if it's $\epsilon= 10^{-2}$, then we have the band at $40dB$ and so on and so for.
+
 disegno banda 3dB
+\subsubsection{Energy criterion}
+We define the signal only where its energy is within the $1\%$ or $10\%$ of the maximum (e.g. $E_x \ge 0.01 \, E_x^{max}$)
 
+\subsubsection{First-zero crossing criterion}
+We define the two extremal frequencies $f_1 \, , \, f_2$
+\begin{equation}\begin{cases}
+  f_1 = \max \lbrace 0 \le f \le f_0  : |X(f)|=0\rbrace\\
+  f_2 = \min \lbrace f \ge f_0  : |X(f)|=0\rbrace\\
+  f_0 = \argmax\limits_{f \ge 0} |X(f)|
+\end{cases}\end{equation}
+So we define the practical band with the range of frequencies in the central frequency lobe.
+\begin{remark}
+  For baseband signals $f_1  = 0$
+\end{remark}
 
+\subsection{Heaviside condition}
+In order not to have distoritions at the output of a filter,which means $y(t) = A x(t-t_0)$, we need to satisfy the Heavyside conditions for non distorition, which are:
+\begin{itemize}
+  \item $|H(f)| = A_0$ constant $\forall f \in \B_x$ (or more strictly $\forall f \in \R$)
+  \item $\phase{H(f)} = -2\pi f t_0$ constant $\forall f \in \B_x$ (or more strictly $\forall f \in \R$)
+  \item constant group delay, meaning that
+  \begin{equation}
+    \tau(f) = -\frac{1}{2\pi}\frac{\partial{f}{\phase{H(f)}}}{\partial f} = t_0 \forall f in \B_x
+  \end{equation}
+\end{itemize}
+
+\begin{theorem}[Sampling Theorem]
+  Given an input signal $x(t)$ such that
+  \begin{itemize}
+    \item $x(t)$ is band limited with $\B_x \in [0;B)$
+    \item The sampling rate is $F_S \ge 2 B$
+    \item the interpolator filter is such that
+    \begin{equation} G(f) =
+      \begin{cases}
+        T_s & |f| < B \\
+        \text{arbitrary} & \text{transition band } B \le |f| \le F_S - B\\
+        0 & |f| \ge F_S - B
+    \end{cases}\end{equation}
+  \end{itemize}
+then we have perfect reconstruction, which is $\tilde{x(t)} = x(t) ~~\forall t \in \R$
+\end{theorem}
+
+The ideal filter is the rect in time or in frequency:
+$\begin{cases}g(t) = 2B T_S rect(2 B t) \\G(f) = T_S\, rect(\frac{f}{2B}) \end{cases}$
+Generally we will use the second one as the anti-aliasing filter.
+
+\begin{theorem}[Nyquist theorem]
+
+\end{theorem}
 \section{Random Processes (RPs)}
 All the signals can be modeled as random processes, so we need to review the continuous $rp_s$ and the discrete ones
 
