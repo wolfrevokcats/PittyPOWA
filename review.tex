@@ -247,11 +247,11 @@ We also derive that the probability that the $x(t)$ is between b and c as
   \mathbb{P}[b<x(t)<c] = Q\left(\frac{b-m_x(t)}{\sigma_x^2(t)}\right)-Q\left(\frac{c-m_x(t)}{\sigma_x^2(t)}\right)
 \end{equation}
 
-\begin{figure} \centering
-  \input{img/sch_ADC.tex}
-  \caption{The scheme for an ADC}
-  \label{}
-\end{figure}
+% \begin{figure} \centering
+%   \input{img/sch_ADC.tex}
+%   \caption{The scheme for an ADC}
+%   \label{}
+% \end{figure}
 \section{Quantizer}
 Let the input signal be $a(n T_x) \in \R$, the intermediate output(1) is $a_q(nT_s) \in A_q = \lbrace q_0,\dots,q_{L-1} \rbrace$ with L the number of levels of the quantizer.
 The intermediate output $\hat{c}(n Ts)$ is the codewords, which means a sequence of bits. The final output is a bit stream $\lbrace b_l \rbrace$ with a bit time $T_b$
@@ -277,11 +277,11 @@ The P/S, parallel to serial converter, converts the codewords into bitstreams. H
 
 Moreover we define the symbol rate as $F=\frac{1}{T} = \frac{R_b}{\log_2(M)}$
 
-\begin{figure}\centering
-  \input{img/sch_modul.tex}
-  \caption{a digital modulator scheme}
-  \label{}
-\end{figure}
+% \begin{figure}\centering
+%   \input{img/sch_modul.tex}
+%   \caption{a digital modulator scheme}
+%   \label{}
+% \end{figure}
 \subsubsection{Modulations}
 We now introduce the PAM (Pulse Amplitude Modulation) modulation, where each transmitted symbol is defined as the symbol with this map: $a_k \to s_{a_k} (t) = a_k \cdot h_{tx}(t)$. $h_{tx}$ is defined as the impulse shape, usually taking the form of the rect or the raised cosine (ircos).
 The general transmission can be shown as
@@ -309,11 +309,11 @@ The probability to receive a wrong symbol depends on
 \end{enumerate}
 
 \subsubsection{Filtering}
-\begin{figure} \centering
-  \input{img/sch_filter.tex}
-  \caption{}
-  \label{}
-\end{figure}
+% \begin{figure} \centering
+%   \input{img/sch_filter.tex}
+%   \caption{}
+%   \label{}
+% \end{figure}
 \paragraph{Time domain}
 In the time domain we find that the principal property of a filter are:
 \begin{esp}
@@ -332,19 +332,19 @@ On the frequency domain the results are
   P_y(f) &= |G(f)|^2 P_x(f)
 \end{esp}
 
-\begin{figure} \centering
-  \input{img/sch_realistic.tex}
-  \caption{The realistic receiver scheme. The synchronization block can be based on packet communication or continuous transmission}
-  \label{}
-\end{figure}
+% \begin{figure} \centering
+%   \input{img/sch_realistic.tex}
+%   \caption{The realistic receiver scheme. The synchronization block can be based on packet communication or continuous transmission}
+%   \label{}
+% \end{figure}
 
 $a_k$ and $h_{TX}$ depends only on the modulation.
 
-\begin{figure} \centering
-  \input{img/sch_recFE.tex}
-  \caption{}
-  \label{}
-\end{figure}
+% \begin{figure} \centering
+%   \input{img/sch_recFE.tex}
+%   \caption{}
+%   \label{}
+% \end{figure}
 \subsubsection{Advanced modulation techniques}
 The channel usually doesn't have a flat response over all the frequencies, so we need to differenciate the different types of channels. We call \textbf{ frequency selective channel} a channel that varies fastly (w.r.t. the center frequency), so that we use only small bands to consider the subchannel a flat one. We call, instead, a channel \textbf{Wideband} if it can be approximated
 to a flat one for a great frequency band (w.r.t. the center frequency). A wideband channel has some other problems different from the frequency selective channel: it's more subject to ISI, Inter Symbol Interference. For theese type of channels we need suitable Tx and RX filters and we need to equalize the channel, which means that the receiver need to compensate distortion.
@@ -366,11 +366,11 @@ The first is used for high bitrate application, wherease the second is more suit
 \subsection{Multi carrier modulation}
 The main concept is to partition the frequency band in smaller ones with bandwith $B_{_0}=\frac{1}{T_{_0}}$. We will have then many small subchannels with bandwith $B_{_0}$ and centered on a particular frequency: $B_i \in \left(f_i - \frac{B_{_0}}{2};f_i + \frac{B_{_0}}{2}\right)$.
 
-\begin{figure} \centering
-  \input{img/sch_OFDM_tx.tex}
-  \caption{}
-  \label{}
-\end{figure}
+% \begin{figure} \centering
+%   \input{img/sch_OFDM_tx.tex}
+%   \caption{}
+%   \label{}
+% \end{figure}
 
 
 $T_{_0}=N\,T \gg T$
@@ -582,7 +582,7 @@ Hence it's safe to say that the choice of the carrier frequency $f_0$ can be don
 Also using radio links we have to be aware of the \textit{propagation effects} like reflections and scattering that bring our signal not to follow just the \textit{Line of Sight path} (LOS) but might differ from this one. In fact r(t) can also follow other paths so that the receiver can receive LOS plus other components deriving from other structures that might attenuate the original signal (i.e buildings). In this case the signal is called \textit{multipath} and in some case it could be also an advantage scenario.
 
 We could use the Maxwell equations but we prefer to use a simplified model:
-\paragraph{Narrowband Model Channel}
+\subsection{Narrowband Model Channel}
 We're referring to a scenario where there are two antennas, a trasmitting and a receiving one ($Ant,Tx$ and $Ant,RC$).
 
 For the transmitter point of view (TX) we can have the power density for a isotropic antenna differing from a directional one such that:
@@ -623,7 +623,7 @@ Certainly $a_{CH}$ can be written in the decibel scale as:
 
 In conclusion we can highlight that using radio links we have less attenuation when we increase the distance and an advantage also in the carrier frequency but we have to face the fact that we need a much larger bandwidth since we are not conveying electricalmagnetic waves into a medium.
 
-\subsubsection{Propagation Effects }
+\subsection{Propagation Effects }
 
 \begin{enumerate}
 \item Path Loss $\Rightarrow$ attenuation
@@ -638,7 +638,7 @@ In conclusion we can highlight that using radio links we have less attenuation w
 \item Scattering
 \end{itemize}
 
-As we previously said, if ther are obstacles in the space of free-moving of the signal it can be scomposed. The typical distance are the lenghts of the obstacles and this express a high dependence from the enviroment. In fact if we refer to the outdoor environment the distance (d) from TX and RC is between 10 to 100 m, whereas for the indoor one d $\leq$ 10 m.
+As we previously said, if there are obstacles in the space of free-moving of the signal it can be scomposed. The typical distance are the lenghts of the obstacles and this express a high dependence from the enviroment. In fact if we refer to the outdoor environment the distance (d) from TX and RC is between 10 to 100 m, whereas for the indoor one d $\leq$ 10 m.
 
 $$\text{Path loss and shadowing = large scale propagation effects}$$
 \item Multipath fading: constructive and distructive addition of the multipath signal components (rapid phase changes).
@@ -646,4 +646,140 @@ Typical distances are very very short like in the range of wavelength of the wav
 \end{enumerate}
 
 \textbf{Inserisci grafico 2}
-Linear model if we consider just the path loss fenomenum but if we consider both the path loss and the shadowing we have a model with a variable characteristic. If we add also the multipath factor the function $(\frac{P_{RC}}{P_{TX}})_{dB}$ will have even more flactuations
+
+Linear model if we consider just the path loss fenomenum but if we consider both the path loss and the shadowing we have a model with a variable characteristic. If we add also the multipath factor the function $(\frac{P_{RC}}{P_{TX}})_{dB}$ will have even more flactuations.
+
+\subsubsection{Delay Spread $T_m$}
+\textbf{Lezione 16/10/2017}
+\textbf{[inserisci figura 1]}
+We have a transmitter and a receiver.
+We know that we have a LOS (Line of Sight)components and multipath components.
+
+We can express the DElay SPread as $T_m = \argmax\limits_n[\tau - \tau_o] = \max_n[\tau_n - \tau]$ with $\tau_0$ the smallest delay and $\tau$ the average delay and n the number of multipath components.
+
+Time-invariant channels: Tm is constant
+Time-variant channels: Tm is variable, random variable
+$\Rightarrow$ For a realistic receiver we have a synchronization. 
+We can take into account the standard deviation $\sigma_{T_m}$ or the mean $T_m$ or also the root mean square. 
+
+For indoor environment we have a $T_m \in [10-10^3]ms$ and for suburban contest we have a delay spread that takes values between 200 and 2$\cdot 10^3$ ms and for urbans is from 1 to 30 microseconds. 
+
+How can we decide if the value of the delay spread is important or not, meaning that it can cause some damage?
+
+$\Rightarrow$ when the delay spread is much smaller than the inverse of the bandwidth of the transmitted signal $\mathcal{B}^{-1}$ than we do not experience \textit{inter-symbol interference}, a classical problem in the modulation theory.   
+
+$\Rightarrow T_m \leq \mathcal{B}^{-1}$
+
+\paragraph{Linear Modulation}
+we have trains of symbols that lead to trains of waveforms $s_{T_x}$ (scaled or modified version of a pulse $h_{T_x}(t)$). T is the symbol period and every T seconds we received a waveform that can be scaled or delayed so we know an overall time $T + T_m$ to received one symbol. 
+
+$\Rightarrow$ All the multipath components are almost overlapping with $T_m \leq T$
+
+In case of a $T_m \geq T$ there could be problems in the decodification fo the symbols
+
+\subsection{Coherence Bandwidth $\mathcal{B_c}$}
+Thisis the minimum frequency separation for which the channel response is roughly independent: $B_c \sim \frac{1}{T'}$ where, typically, T' = $\sigma_{T_m}$.
+
+\paragraph{First case} case of narrowband signals $\mathcal{B} \leq \mathcal{B}_c$ and we have \textit{flat fading}
+\paragraph{Second case} Signal with $\mathcal{B} \geq \mathcal{B}_c$
+and in this case we have \textit{frequency-selective channel}
+
+\section{Orthogonal Frequency Division Multiplexing (OFDM)}
+\paragraph{Transmitter Point of View - TX}
+The concept is to divide a total stream $\{b_l\}$ with \textit{Nominal Information Rate} $R_b$ into N sub-streams for N sub-channels, every one of whom have a data rate equal to $\frac{R_b}{N}$ much smaller than $R_b$.
+The basic advantage is to try to have sub-channel that not introduce any inter-symbol interference (ISI) so that the data rate decrease compared to $R_b$. 
+
+This method is used in the most recent wireless protocols and in Ultra-Wide Bands Comunication. 
+\textbf{[Inserisci disegno 2 e 3]}
+The total stream is divided in N bit streams which are mapped by N symbol maps to get N signals $s_i(t) \in \mathbb{C}$. Each signal then is mapped into a manipulator $g(t)$ which have $s_i(t)$ as outputs. Then N carrier multiply the input signal $s_i(t)$ with the corrisponding elements $\cos(2\pi f_i t)$. Then every output is summed to get the final $s_{T_x}(t)$. 
+Therefore $s_{T_x}(t)$ is
+\begin{equation}
+s_{T_x} = \sum\limits_{i=0}^{N-1} s_i g(t) \cos(2\pi f_i t + \varphi_i)
+\end{equation}
+For \emph{NON - OVERLAPPING} sub-channels:
+\begin{equation}
+\begin{cases}
+B = N B_u\\
+R_b = N R_b
+\end{cases}
+\end{equation}
+
+\paragraph{Receiver Point of View - RC}
+\textbf{[Inserisci disegno 4]}
+In this case in input we have $s_{RC}(t) + w_{RC}(t)$ and we have to shift our components with a specific carrier with frequency $f_0$. Then there's a modulator that get as output N $s_i(t) + w_i(t)$ which are input for a demodulator that produce signals at rate $\frac{R_b}{N}$. After that there's a P/S that get as result a signal at rate $R_b$ 
+
+\subsection{Criticism}
+\begin{enumerate}
+\item Spectral efficiency: overlapping sub-channels $\Rightarrow$ different implementations (still orthogonal) are possible, using overlapping sub-channels (saving Bandwidth)
+\item Filters at the RC: ideal
+
+$\rotatebox[origin=c]{180}{$\Lsh$}$  difficult implementation $\Rightarrow$ keep orthogonality\\
+$\rotatebox[origin=c]{180}{$\Lsh$}$ cost
+\item N subchannel $\Rightarrow$ N modulators and demodulators which ends to depends on size and therefore could erase the costs
+\end{enumerate}
+
+\paragraph{TX}
+\textbf{[Inserisci disegno 5]}
+
+\begin{definition}{Inverse DFT}\\
+x[n] = $\frac{1}{\sqrt[]{N}}\sum\limits_{i = 0}^{N - 1}\mathcal{X}[i]e^{j2\pi n\frac{i}{N}}$, \text{where } $e^{j2\pi n\frac{i}{N}}$ \text{is the carrier and} x[n] = x[0] x[1] ... x[N - 1] \text{is the OFDM symbol}
+\end{definition}
+
+\paragraph{Cyclic prefix}
+\textbf{[Inserisci disegno 6]}\\
+We can define $\mu$ additional bit and have a data rate reduction of $\frac{N}{\mu + N}$ which is the \textit{Transmitter Power Waste}
+
+\paragraph{RC}
+In input we have $r(t)$ which is multiplexed with $\cos(2\pi f_0t)$ and then pass through a LPF block. Then we can find an ADC whose output $y[n]$ is the input of a block which tasks are to remove the cyclic prefix $\mu$ and do an S/P. As result we get N $y[i]$ which are Fourier-transformed by the FFT block that gets N $\mathcal{Y}[i]$ that are P/S to build the final $\mathcal{Y}$. This one is QAm demodulated to have a bit rate $R_b$ at a period $T_b$.
+
+Our result are:
+\begin{equation}
+\begin{cases}
+y[n] = \widetilde{x}[n] \star h[n] + \nu[n]\\
+-\mu \leq n \leq N - 1
+\end{cases}
+\end{equation}
+
+In absence of noise we have $\mathcal{Y}[i] = \mathcal{H}[i]\mathcal{X}[i]$ with $\mathcal{X}[i]$ is the $i^{th}$ frequency components of the transmitted signal and $\mathcal{H}[i] = \alpha_i \doteq$ \textit{frequency components of the channel} so that $\mathcal{H}(f_i) = \alpha_i$ is the \emph{Flat Fading Channel Gain}.
+
+\subsection{Advantage}
+\begin{enumerate}
+\item No requirement of the channel knowledge at the transmitter, whereas is still needed informations requiring the carriers at the receiver point of view\\
+$\rotatebox[origin=c]{180}{$\Lsh$}$ Technique called \emph{Frequency Equalization} $\mathcal{H}[i] \rightarrow \mathcal{X}[i] = \frac{\mathcal{Y}[i]}{\mathcal{H}[i]}$
+\item Remove ISI keeping SNR unchanged
+$\rotatebox[origin=c]{180}{$\Lsh$}$ precoding techniques
+$\rotatebox[origin=c]{180}{$\Lsh$}$ adoptive loading
+$\rotatebox[origin=c]{180}{$\Lsh$}$ coding across channels
+\item Is based on FFT matrix
+\item Multiple Inputs Multiple Outputs (MIMO)
+\end{enumerate}
+
+In conclusion if we don't design the scheme in the correct way the Inter-Carrier Interferences (ICI) is a possible experience this kind of problems.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
