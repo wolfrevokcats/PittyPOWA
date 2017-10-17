@@ -659,19 +659,19 @@ We can express the DElay SPread as $T_m = \argmax\limits_n[\tau - \tau_o] = \max
 
 Time-invariant channels: Tm is constant
 Time-variant channels: Tm is variable, random variable
-$\Rightarrow$ For a realistic receiver we have a synchronization. 
-We can take into account the standard deviation $\sigma_{T_m}$ or the mean $T_m$ or also the root mean square. 
+$\Rightarrow$ For a realistic receiver we have a synchronization.
+We can take into account the standard deviation $\sigma_{T_m}$ or the mean $T_m$ or also the root mean square.
 
-For indoor environment we have a $T_m \in [10-10^3]ms$ and for suburban contest we have a delay spread that takes values between 200 and 2$\cdot 10^3$ ms and for urbans is from 1 to 30 microseconds. 
+For indoor environment we have a $T_m \in [10-10^3]ms$ and for suburban contest we have a delay spread that takes values between 200 and 2$\cdot 10^3$ ms and for urbans is from 1 to 30 microseconds.
 
 How can we decide if the value of the delay spread is important or not, meaning that it can cause some damage?
 
-$\Rightarrow$ when the delay spread is much smaller than the inverse of the bandwidth of the transmitted signal $\mathcal{B}^{-1}$ than we do not experience \textit{inter-symbol interference}, a classical problem in the modulation theory.   
+$\Rightarrow$ when the delay spread is much smaller than the inverse of the bandwidth of the transmitted signal $\mathcal{B}^{-1}$ than we do not experience \textit{inter-symbol interference}, a classical problem in the modulation theory.
 
 $\Rightarrow T_m \leq \mathcal{B}^{-1}$
 
 \paragraph{Linear Modulation}
-we have trains of symbols that lead to trains of waveforms $s_{T_x}$ (scaled or modified version of a pulse $h_{T_x}(t)$). T is the symbol period and every T seconds we received a waveform that can be scaled or delayed so we know an overall time $T + T_m$ to received one symbol. 
+we have trains of symbols that lead to trains of waveforms $s_{T_x}$ (scaled or modified version of a pulse $h_{T_x}(t)$). T is the symbol period and every T seconds we received a waveform that can be scaled or delayed so we know an overall time $T + T_m$ to received one symbol.
 
 $\Rightarrow$ All the multipath components are almost overlapping with $T_m \leq T$
 
@@ -687,11 +687,11 @@ and in this case we have \textit{frequency-selective channel}
 \section{Orthogonal Frequency Division Multiplexing (OFDM)}
 \paragraph{Transmitter Point of View - TX}
 The concept is to divide a total stream $\{b_l\}$ with \textit{Nominal Information Rate} $R_b$ into N sub-streams for N sub-channels, every one of whom have a data rate equal to $\frac{R_b}{N}$ much smaller than $R_b$.
-The basic advantage is to try to have sub-channel that not introduce any inter-symbol interference (ISI) so that the data rate decrease compared to $R_b$. 
+The basic advantage is to try to have sub-channel that not introduce any inter-symbol interference (ISI) so that the data rate decrease compared to $R_b$.
 
-This method is used in the most recent wireless protocols and in Ultra-Wide Bands Comunication. 
+This method is used in the most recent wireless protocols and in Ultra-Wide Bands Comunication.
 \textbf{[Inserisci disegno 2 e 3]}
-The total stream is divided in N bit streams which are mapped by N symbol maps to get N signals $s_i(t) \in \mathbb{C}$. Each signal then is mapped into a manipulator $g(t)$ which have $s_i(t)$ as outputs. Then N carrier multiply the input signal $s_i(t)$ with the corrisponding elements $\cos(2\pi f_i t)$. Then every output is summed to get the final $s_{T_x}(t)$. 
+The total stream is divided in N bit streams which are mapped by N symbol maps to get N signals $s_i(t) \in \mathbb{C}$. Each signal then is mapped into a manipulator $g(t)$ which have $s_i(t)$ as outputs. Then N carrier multiply the input signal $s_i(t)$ with the corrisponding elements $\cos(2\pi f_i t)$. Then every output is summed to get the final $s_{T_x}(t)$.
 Therefore $s_{T_x}(t)$ is
 \begin{equation}
 s_{T_x} = \sum\limits_{i=0}^{N-1} s_i g(t) \cos(2\pi f_i t + \varphi_i)
@@ -706,7 +706,7 @@ R_b = N R_b
 
 \paragraph{Receiver Point of View - RC}
 \textbf{[Inserisci disegno 4]}
-In this case in input we have $s_{RC}(t) + w_{RC}(t)$ and we have to shift our components with a specific carrier with frequency $f_0$. Then there's a modulator that get as output N $s_i(t) + w_i(t)$ which are input for a demodulator that produce signals at rate $\frac{R_b}{N}$. After that there's a P/S that get as result a signal at rate $R_b$ 
+In this case in input we have $s_{RC}(t) + w_{RC}(t)$ and we have to shift our components with a specific carrier with frequency $f_0$. Then there's a modulator that get as output N $s_i(t) + w_i(t)$ which are input for a demodulator that produce signals at rate $\frac{R_b}{N}$. After that there's a P/S that get as result a signal at rate $R_b$
 
 \subsection{Criticism}
 \begin{enumerate}
@@ -756,30 +756,106 @@ $\rotatebox[origin=c]{180}{$\Lsh$}$ coding across channels
 
 In conclusion if we don't design the scheme in the correct way the Inter-Carrier Interferences (ICI) is a possible experience this kind of problems.
 
+[exercizes solution]
 
+\begin{exercize}[1]
+  let $a(t)$ be a biomedical signal with $B_a = 4KHz \, \, a(t)\sim \N(0,\sigma_a^2)$. with $\sigma_a = 9V^2$. Let the quantization SNR  be $\Lambda_q = 20dB$ and the $P_{sat} = 10^{-4}$. The transmission system is PCM and involves a PAM modulation.
+  \proofpart
+  Use an uniform quantizer with $L=2^b$ levels.
 
+  \textsc{\textbf{Solution:}}
+  \begin{equation}
+    P_{sat} = 2 Q\left(\frac{v_{sat}}{\sigma_a}\right) \implies v_{sat} = Q^{-1}\left(\frac{P_{sat}}{2}\right)\cdot \sigma_a \approx 3.8 \sigma_a \approx 11.64V
+  \end{equation}
+  Then we know that
+  \begin{equation}\begin{split}
+    \Lambda_q &= \frac{M_a}{M_{eq}} \stackrel{m_a=0}{=} \frac{\sigma_a^2}{M_{eq}} \approx \frac{\sigma_a}{\frac{\Delta^2}{12}} \\
+    &= \frac{\sigma_a^2}{4 v_sat^2}l^2 = \frac{3 L^2 \sigma_a}{v_sat^2} \\
+    \implies & L \ge \sqrt{\frac{\Lambda_q}{3}\left(\frac{v_sat}{\sigma_a}\right)^2} \implies L=32 \, b=5
+    \end{split}\end{equation}
+    where $\Delta = \frac{2v_{sat}}{L} \approx 0.7125$
+  \proofpart
+  Using the above quantizer, $[-v_{sat};v_{sat}]$, let $R_b$ be the bitrate, T the symbol period and let the modulation be a 8-PAM.
 
+  [schema quantizzatore già visto]
+  \textsc{\textbf{Solution:}}
+  $R_b = b \, F_s = b \cdot 2\B_a = 40Kbps$
+  \\
+  In an 8-PAM, we form 1 symbol with $\log_2(M)=\log_2(8)=3 bit\, implies T=3T_b = 75\mu s$
+ \proofpart
+ Assuming the channel is an AWGN (additive white gaussian noise) with PSD $\P_n(f) = \frac{N_0}{2} = 10^{-12}V^2/Hz$. Then we need the overall SNR of the system to be $\Lambda_{PCM} = 15dB$. Compute the statistical power of the signal $M_{S_{RC}}$.
 
+ \textsc{\textbf{Solution:}}\\
+From the theory the error is due to the errors in the channel which, from formula (5.2) of the book we find
+$\Lambda_{PCM} = \frac{\Lambda_q}{1+4\left(2^{2b}-1\right)\, P_{bit}}$
+\\
+Inverting it we find
+\begin{equation}
+  P_{bit} = \left(\frac{\Lambda_q}{\Lambda_{PCM}}-1\right) \frac{1}{4(2^{2b}-1)} \approx 1.295 \cdot 10^{-3}
+\end{equation}
+For an K-PAM we have
+\begin{equation}\begin{split}
+  P_{bit} &= \frac{2\left(1-\frac{1}{K}\right)}{\log_2(K)} Q\left(\sqrt{\frac{3 \Gamma}{(K^2 -1)}}\right)\\
+  \Gamma &= \frac{K^2 -1}{3}(Q^{-1}(\frac{P_{bit} \log_2(K)}{2 (1-\frac{1}{K})}))\approx 170.5 \approx 22.3dB
+\end{split}\end{equation}
+where $\Gamma = \frac{2 E_s}{N_0}$ and as the PAM is a baseband modulation $B_{min} = \frac{1}{2T}$.
 
+\begin{equation}
+  \Gamma = \frac{M_{S_{RC}}}{N_0/2 * 2B_{min}} = \frac{M_{S_{RC}}}{N_0  B_{min}}\\
+  \implies M_{S_{RC}} = \frac{\Gamma N_0}{2T} \approx 2.69 10^{-6}V^2
+\end{equation}
 
+  \proofpart
+  Substituting the 8-PAM  with a 2-PAM, the quantity that's changing is the symbol period: $T=25 \mu s$.
+  The number of bit per symbol becomes $\log_2(M) = \log_2(2) = 1bit$.
+  The $P_{bit}$ doesn't change, wherease $\Gamma = \frac{K^2 -1}{3}\left(Q^{-1}\left(\frac{P_{bit} \log_2(K)}{2 \left(1-\frac{1}{K}\right)}\right)\right)\approx 9.3 \approx 9.7dB$. So the $M_{S_{RC}} = \frac{\Gamma N_0}{2T} \approx 3.72 10^{-7}V^2 \approx -64.3 dBV^2$
+\end{exercize}
 
+\begin{exercize}
+We have a digital system to transmit analog signals. There are two types of sensors and we have 10 sensors in total:
+\begin{enumerate}
+  \item 5 sensors type 1  with $B_1 = 5KHz \quad SNR_1 \ge 45dB$
+  \item 5 sensors type 2  with $B_2 = 10KHz \quad SNR_2 \ge 35dB$
+\end{enumerate}
+Assume the amplitudes pf the signal are uniformly distributed.\\
+\proofpart
+Compute the bitrate for type 1 sensors
+%\\ [ schema quantizzatore]\\
+\textsc{\textbf{Solution:}}
+\\
+$F_{s1} = 2 B_1 = 10KHz \quad T_{s1} = \frac{1}{F_s1} = 0.1ms$
+We actually don't know the $R_{b1} = b_1 F_{s1}$ as we don't know $b_1$. We can find that $6.02b \ge 45dB \implies b_1 = \ceil*{\frac{45}{6}} = 8 bit$.
 
+Now that we have $b_1$ we get $R_{s1} = 80Kbps$
 
+\proofpart
+Multiplex all digital stream and find the total bitrate $(R_b)_{TOT}$\\
+\textsc{\textbf{Solution:}}
+\\
+For type 2 sensors $F_{s2} = 2B_2 = 20KHz ; T_{s2} = \frac{1}{F_{s2}} = 50\mu s$
+The number of bits is:
+$6.02b \ge 35dB \implies b_2 = \ceil*{\frac{35}{6}} = 6 bit$, so we obtain that $R_{b2} = 120kbps$.
+\\
+$(R_b)_{TOT} = 5 R_{b1}+ 5 R_{b2} = 1Mbps$
 
+\proofpart
+Find the logic scheme for the multiplexer to confert the 10 bit streams into one only stream with $(R_b)_{TOT}$
+\textsc{\textbf{Solution:}}
+\\
+\begin{itemize}
+  \item Every $ T_{s1} = 0.1 ms$ we get 8 bits
+  \item Every $ T_{s2} = 0.05 ms$ we get 6 bits
+\end{itemize}
+So we need to transmit 100 bit packet
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\proofpart
+Max $P_{bit}$ in order to guarantee the required SNR for all the signal.
+\begin{equation}
+  \Lambda_{PCM} = 45dB \approx \Lambda_{q,1} \quad \Lambda_{PCM} = \frac{\Lambda_q}{1+4\left(2^{2b}-1\right)\, P_{bit}}
+P_{bit} \approx \begin{cases}
+\left(\frac{10^{4.8}}{10^{4.5}}-1\right) \frac{1}{4(2^{2b_1}-1)} = 3.8 10^{-6}\\
+\left(\frac{10^{4.8}}{10^{4.5}}-1\right) \frac{1}{4(2^{2b_2}-1)} = 1.3 10^{-3}
+\end{cases}
+\end{equation}
+where $\Lambda_{q1}$ is given putting the effective number of bits into the quantizer SNR formula
+\end{exercize}
