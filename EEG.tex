@@ -1,0 +1,33 @@
+\chapter{Electroencephalography}
+The EEG signal comes from the most exterior part of the brain and it's an electrical signal. The outer part of the brain contains the synapsis, wich increases whith aging of the person.
+[slide 3]
+The neural network can be tree-based and if all neurons in a tree are activated at the same time, we get the EEG signal.
+
+[Slide 4]
+The EEG propagation can be modeled as
+\begin{equation}
+  \underbrace{EEG}_{P_rc}= \underbrace{LPF}_{P_{TX}} + \underbrace{propEffects}_{shadow/fading} + \underbrace{artefacts}_{noise}
+\end{equation}
+
+In fact, putting an electrode in a point we get the signal coming in the "line of sight" and the propagation of other signals which are transmitted via the skull and the scalp, but aren't in the LOS.
+
+\section{Brain activity characterization}
+In order to study the EEG signal, we need to take into account the activity of the brain in the \begin{itemize}
+  \item Time domain
+  \item Frequency domain
+  \item Space domain (the topology)
+\end{itemize}
+\subsection{Time domain}
+[slide omonima]
+In the time domain we have that the power in the movement situation (figure bottom left) of the signal is that it starts to become constant, wherease in the resting state, there are three main lobes.
+
+\subsection{Frequency domain}
+The frequency domain of the EEG goes in the interval $[0.01;500] Hz$, but EEG machines, usually, don't go under 1.4 Hz and above 60 Hz
+To receive other frequency we need to use other techniques.
+[slide rhythms]
+The activity of the brain can be divided into different types of frequencies. The amplitude is reversly proportional to the frequency, so with high frequency the signal is almost distrupted by path loss and shadowing.
+
+\subsection{Space domain}
+We know that some region are used by the brain for specific activities. Not completely true, butgeneral tendency. In the slides there are the somatosensoty strip and motor strip. In the motor strip, if we move the hand, it's easier to get signals (most reactive region of the brain) in the brain when hand movement is done.
+
+The homunculus plot we have some part of the body given which area is excited when something is done. The today area is not to use the functional approach, but the connectivity/circuit approach: brain seems to be more likely to have circuits to enable some activities. To accomplish some functions we have some circuits activating together to accomplish that function.
