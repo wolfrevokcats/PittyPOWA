@@ -105,4 +105,38 @@ the acquisition goes as follows
  The acquired signal is divided into smaller time signals if the signal is non-stationary, so to make it stationary. Typical length is 2s (deterministic). On the segment, we can decide automatically or by-eye to discard a signal if it's too bad. On each segmen we can compute some statistical properties such as the amplitude distributions (standard deviation, kurtosis, skewness). For example, we can discard a signal that has a standard deviation higher than a threshold as it's considered too noisy. To eliminate trials with some artifacts we can set a threshold that, if exceeded, set the signal as ``bad''
 
  \subsection{Independent Component Analysis (ICA)}
- Different signals which spatial derivation is known, can be mapped into another signal space to map it to another signal space. In this new signal space, ICA can identify artifacts and delete them (e.g. artifacts related to muscular movements)
+ Different signals which spatial derivation is known, can be mapped into another signal space to map it to another signal space using matrix decomposition. In this new signal space, ICA can identify artifacts and delete them (e.g. artifacts related to muscular movements)
+ We can then discards some of the components of the whole signal. Removal of the components and going back to the original signal space, we now have a signal with higher SNR.
+
+ \section{EEG signal processing}
+ \begin{enumerate}
+   \item DC correction
+   \item  spatial filter 1 to remove the reference sensor effect (intracephalic)
+   \item temporal filters
+   \item trials extraction
+   ...
+ \end{enumerate}
+
+ We need to understand if, in the processing phase, we want to derive from the clean dataset of signal into a dataset of sources, more closely related to the brain.
+
+ A famous algorithm is the LORETA.
+
+ The signal can be analyzed with the fourier transform, feature extraction and classification, done with machine learning algorithms.
+
+\subsection{Measures}
+From the EEG we can measure different things:
+activity (resting, event related)
+connectivity measures: measures that quantify the relation of activities at different points. We investigate coherence, to find similarity of the signal int he frequency domain. Cross frequency to find
+
+we can be interested into the relation between brain activity and muscular activity at the same time.
+
+\subsection{ERP}
+The typical waveform is shown in figure. The analysis is done in the time-domain, typically averaging the segments taken in a identical same particular train phase.
+
+We identify, at different times (100ms distances), the response of the brain with an alternance of local maxima and minima of the signals.
+
+Every peak has a meaning: for example the p300 is made out of 2 near peaks.
+The first peak, usually is the receiption of the signal from the ear, eye, touch and the second as the reaction of the signal.
+
+The paradigm to get the erp is:
+we need to set a set of stimuli, not important, followed by one stimulus that is important and the patient is focused on it, followed by non-important stimuli. Then the trial is repeated and averaged to get the final signal.
