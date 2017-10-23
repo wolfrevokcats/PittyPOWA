@@ -11,7 +11,7 @@ The EEG propagation can be modeled as
 
 In fact, putting an electrode in a point we get the signal coming in the "line of sight" and the propagation of other signals which are transmitted via the skull and the scalp, but aren't in the LOS.
 
-\section{Brain activity characterization}
+\section{Brain activity characterization}\label{sec:bac}
 In order to study the EEG signal, we need to take into account the activity of the brain in the \begin{itemize}
   \item Time domain
   \item Frequency domain
@@ -31,3 +31,78 @@ The activity of the brain can be divided into different types of frequencies. Th
 We know that some region are used by the brain for specific activities. Not completely true, butgeneral tendency. In the slides there are the somatosensoty strip and motor strip. In the motor strip, if we move the hand, it's easier to get signals (most reactive region of the brain) in the brain when hand movement is done.
 
 The homunculus plot we have some part of the body given which area is excited when something is done. The today area is not to use the functional approach, but the connectivity/circuit approach: brain seems to be more likely to have circuits to enable some activities. To accomplish some functions we have some circuits activating together to accomplish that function.
+
+\section{Acquisition of EEG}
+We revidse the comparison between an EEG signal and a wireless transmitted signal:
+\begin{esp}\label{eq:eeg-wireless}
+  EEG &= LPF + \text{propagation effects} + \text{artifacts}\\
+  P_{RC} &= P_{TX} + \text{path loss/shadowing} + \text{noise}\\
+\end{esp}
+where LFP Local Field Potential
+
+\subsection{The inverse problem}
+The electrode is a signal source which sends some test signal $s_{TX} = \delta(t)$ to test the received signal into another electrode. The path loss is proportional to $e^{-d}$ and introduces a delay $\tau_0$. We know that there's a kind of pathloss as in the model shown in \eqref{eq:eeg-wireless}
+
+If we set more than one source transmitting a known signal (e.g. $\delta(t)$), we can collect all the delay thanks to the sensors and we can get a matrix which describes the propagation effects (delay, attenuation, cross attenuation) from each source to the sensors.
+
+Inverting that matrix leads to the characterization of the brain. The problem is that we don't actually have a known transmittable signal without other ones, so we need to rely on models known. A reliable source model is an open problem.
+
+We need to characterize the signal as said in \autoref{sec:bac}. We have brain (system) with the neurons. The communication of neurons happens in groups of neuron. Each group can be part of the same circuit (motor, perception/touch, sight, acoustic). There are some circuits interacting with each other creating the system. The visual circuits and the motor one are well studied and well known; other are less known. Now there are studies on why and how the brain ``stop'' of some circuits if other are working. For example Moser studied neurons that activates while the individual is handling space navigation (movements). Same set of neurons works only in some specific frequencies. Neurons can code signals in time, frequency and in phase.
+
+\subsubsection{Sensori-motor circuit}
+The cortex and basal ganglia communicates with some circuit. There are some interesting **
+for example, if we want to move the arm, the cortex (basal ganglia) process the tactile info of the hand (e.g. resting on a table) and uses this information, transmitted with a specific frequency, that will be received and processed to specify a movement. The reception of the signal is slow (f=6Hz) The updating of a movement is quite faster instead (f>20Hz).
+
+As the received power is inversly proportional to the frequency, the brain need to put more energy to high-frequency signal, but brain is constantly in power-save mode, so uses the higher frequency to propagate the signal in a smaller space, wherease the lower frequency for long-distance signals.
+
+The neurons need to be synchronized and this is a topic that's being studied. The synchronization is used to lower the transmission energy, as the two groups are ready to transmit/receive without interfering.
+
+\subsubsection{Circuit modeling}
+One useful and needed approach is the multi-modal: to see the same system we record data from different sensors (EEG, magnetic information, oxigen consumption).
+Another option is stimulating the brain to test the circuit. It's not possible to send a signal and record it from the sensor. We though use some non-invasive techniques to approximate the test signal. An example is the TMS (transcranial magnetic stimulation); another example is the muscular stimulation: we let the individual do some actions and we activate some regions. We can record the signal that was produced.
+
+\section{Recording}
+When we record the EEG we need to set the montage of the electrods and the the cap, which sets where to put the sensors. Importants are two references: the INION (Iz) on the back of the head and the Nasion, the front of the brain. The electrods are made analyzing the left and right preauricular distance to set the electrodes with a specified proportion. To make it easier, there's a standard cap.
+
+The signal is acquired using a differential amplifier, which makes the difference between the reference and the signal.
+
+The standard montage has 10-20 systems which corresponds to 200 electrodes approximately. The sampling needs a frequency at least fo 256Hz with 12/24 bit to represent the levels. Some systems are wired, other are wireless. The portable version is appreciated as less intrusive.
+\subsection{Paradigm}
+To record the EEG signal we typically need to design the paradigm: typically we don't simply put the cap and record, but we use a paradigm to have a better signal. At the beginning of the session, the doctor tells the patient what he will do while the acquisition is on, the stimuli given to the patient. A different stimuli produces different response of the brain, so the recording can be falsified and almost-unreadable as the signal can be corrupted. So not knowing the state of the person can lead to an useless signal.
+the acquisition goes as follows
+ Typically the person does nothing when the screen is blank. when something else is shown, the person enters in a warning state, then it receives some other stimulus and does some actions for a fixed amount of time and then goes to rest. This sequence is called \textbf{trial}. In order to compensate variability of the brain, the trial is repeated.
+
+ We can measure the resting state to analyze the brain activity related to the memory dealing with the environment stimulous. In case of stimuli, we can analyze the event-related potentials (event=stimulus) and event-related (de)synchronization of the signal.
+
+ \subsection{Artifacts}
+ When we record the EEG we have 2 types of artifacts:
+ \begin{itemize}
+   \item Powerline noise given by the coupling noise of the amplifier
+   \item electrode displacement, given by the misplacing of an electrode, the touch of an electrode and the TMS, for example
+ \end{itemize}
+ Muscular activity (around the face): swallowing, eye closing, mouth movement/chewing. Each signal has a frequency which is specific (eye ~~ 3Hz, chewing ~~ 10Hz) and the signal is spatial specific. Alpha waves overlaps, for example, with eye movement, so the signal need to be cleaned from the eye artifacts.
+
+ The pre-processing phase consists in clean the signal from artifacts, enhance SNR, some temporal filters and spatial filters, which exploits the info given by different sensors in different positions to enhance the SNR.
+
+ Sometimes we use the interpolation, we surely segments the signal and it's useful to decompose the signal by separating the frequencies that compose it (PCA and ICA).
+
+ We need to select which processing of the signal. Surely the pre processing explots filtering, segmentation and one of PCA or ICA.
+
+ When we stimulate, there's a drop of the signal (fast, 1s) and it takes a lot to recover the signal (10s) that may be discarded. Some informations are transmitted in 0.1 s, so 10s is really a lot of wasted signal that can though be used if appropriate filtering is applied.
+
+ One criticality is*
+
+ which can lead to the non-stimulation of the patient and waste time.
+
+ One solution is the zero-padding when the signal drops and filtering the really low component, to be able to recover the signal without wasting it.
+ High frequency signal (teeth clanching - scritto male-) can be eliminated with LPF.
+
+ One spatial filter to suppress noise is the laplacian. The small laplacian is used if electrodes filtered are near, Large laplacian if they're far away. To get a higher SNR a temperature sensor can be useful.
+
+ We can use a low pass filter or high pass filter to attenuate some frequencies. Other useful filters are the notch, which eliminates a specific frequency, or a bandpass filter to consider only a band of frequencies.
+
+ \subsection{Segmentation}
+ The acquired signal is divided into smaller time signals if the signal is non-stationary, so to make it stationary. Typical length is 2s (deterministic). On the segment, we can decide automatically or by-eye to discard a signal if it's too bad. On each segmen we can compute some statistical properties such as the amplitude distributions (standard deviation, kurtosis, skewness). For example, we can discard a signal that has a standard deviation higher than a threshold as it's considered too noisy. To eliminate trials with some artifacts we can set a threshold that, if exceeded, set the signal as ``bad''
+
+ \subsection{Independent Component Analysis (ICA)}
+ Different signals which spatial derivation is known, can be mapped into another signal space to map it to another signal space. In this new signal space, ICA can identify artifacts and delete them (e.g. artifacts related to muscular movements)
