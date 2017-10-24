@@ -32,6 +32,8 @@ We know that some region are used by the brain for specific activities. Not comp
 
 The homunculus plot we have some part of the body given which area is excited when something is done. The today area is not to use the functional approach, but the connectivity/circuit approach: brain seems to be more likely to have circuits to enable some activities. To accomplish some functions we have some circuits activating together to accomplish that function.
 
+23/10/2017
+
 \section{Acquisition of EEG}
 We revidse the comparison between an EEG signal and a wireless transmitted signal:
 \begin{esp}\label{eq:eeg-wireless}
@@ -133,10 +135,83 @@ we can be interested into the relation between brain activity and muscular activ
 \subsection{ERP}
 The typical waveform is shown in figure. The analysis is done in the time-domain, typically averaging the segments taken in a identical same particular train phase.
 
-We identify, at different times (100ms distances), the response of the brain with an alternance of local maxima and minima of the signals.
+We identify, at different times (100ms interval), the response of the brain with an alternance of local maxima and minima of the signals.
 
 Every peak has a meaning: for example the p300 is made out of 2 near peaks.
 The first peak, usually is the receiption of the signal from the ear, eye, touch and the second as the reaction of the signal.
 
 The paradigm to get the erp is:
 we need to set a set of stimuli, not important, followed by one stimulus that is important and the patient is focused on it, followed by non-important stimuli. Then the trial is repeated and averaged to get the final signal.
+
+For neurologist, two important peaks are the N200 and the P300, which can determine some cognitive problems.
+
+24/10/2017 lect \# 9
+
+\subsection{Event Related Desynchronization}
+Used to investigate the brain activity during the movements. For example, when performing a movement, we arrive from a situation of resting and after a stimuli, the person need to do a thing (e.g. grab a pen). Along with the EEG we can have the EMG contemporarily (boh). We record, in the emg the situation on the muscle where, after the sound, the muscle starts contracting and then keeps contrancting. The EEG (ERD) at the same time presents a phase where there's a resting power. After the stimuli, the power decreases and says at a low level until the movement is completed. This is a typical behaviour.
+
+Where can we extract the signal? We cannot extract the signal if it's coming in the frontal or occipital part of the brain. instead we record from the center part of the brain, along the line from one ear to the other.
+
+The frequencies band are $ \mu \approx \in [8;13]Hz ~~\beta \approx \in [13;30]Hz$ for $\mu$ and $\beta$ rithm. The subject increases the activity before the movement and mu waves during.
+
+From the baseline of the signal, we usually have a peak and then a lower baseline. After the movement we have the baseline of before-movement (figura 1 gimp)
+
+The mu signal is strong in $C_3$, wherease the $\beta$ signal can be deirved on both the $C_3$ and $C_z$.
+
+Sometimes we can extract the lines of the EEG from the EMG and the knowledge on the time when the stimulus was applied. From the two plots we can derive the brain period of the subject related to the movement.
+
+\subsubsection{Algorithm to extract $\mu$ and $\beta$ bands}
+
+The algorithm starts averaging the power, then comparing to a model. Usually the beta band is negative until the movement ended.
+
+Another visualization is the power of the signal on each receiver put on the brain. This can show where the desynchronzation happens and usually starts from c3 and after a while we get the signal on the opposite side c4 (ipsilateral signal) as showing that the right part of the brain controls the left part of the body.
+
+The time-frequency decomposition of the signal shows the variation of the signal power in time at different frequencies, so we can show the desynchronization, in blue, which is not self substained (boh), but it's an itra-individual characteristic.
+
+We can have the same plot if the person is just imagining the movement, without doing it. The trial for this sequence is the same as the one with the actual movement (rest, warning, imagination).
+
+This can be useful to analyze the movement and the strength of a movement to extend it to people that can only imagine it.
+
+\subsubsection{hyppocampus studies [ hot topic]}
+The cross frequencies coupling is quite useful to understand the condition of a person and find if there are some problems in accomplishing actions.
+The hyppocmamous structure is made out of substructures and its well known. The substructures communicates with each other using known signal. The carrier [4;8]Hz for the transmission from the source to the receiver is in the theta band and it's based on 2 carriers modulated. The receiving area is activated using a different carrier with a different phase  (e.g. slow carrier. at a certain phase, we have another area sending another signal sent at a higher frequency (gamma band))
+$\theta \in [4;8]Hz ~~ \gamma > 30Hz (\text{human}) \, or \, >60Hz$
+
+The gamma activity happens at a specific point of the phase of theta, for example a typical behaviour is the one where the gamma activity happens on $\theta$' trough. On the top of the $\theta$ modulation there's another signal (modulated with AM), the $\gamma$ is modulated inside the $\theta$ modulated signal. The principal signal is sent at theta band wherease the feedback signal is sent, synchronously, at the gamma band modulated with the theta modulation. This is the Cross-frequency coupling.
+
+
+An animal study on mouse is studied when the mouse need to store new memori (e.g. new path). We see a burst of beta/theta (boh) activity.
+
+\subsection{CFC for synchronization}
+The brain-muscle model has a sensor that from the muscle tx the signal to the thalamus and the basal ganglia and the motor area retx the signal to the muscle.
+
+Synchronization is required for the movement, so more than one signal need to be transmitted at the same time when other signals are also transmitted. To keep energy consumption low, lower frequencies are used for long-range comm, wherease higher frequencies( faster communication) are used for shord and rapid signal, so we can get the meaning (muscle or inter-brain communication) of the signal also considering its frequency.
+
+slide analog modulation cfc, self explainatory.
+
+We then need to demodulate the AM signal, to recover the useful signal. To demodulate, we apply the well known demodulation theory:
+
+The signal has the cross-frequency noise modulated with some pink noise. Pink noise has $\P_\mu(f) \propto \frac{1}{f}$. With standard demodulation algorithm, we loose a lot of useful signal, while getting the main theta signal.
+
+Using the AM theory we can get the theta signal and the gamma one, so x-freq coupling is preserved.
+------
+cortico-muscular coherence slide
+
+We can imagine to have x,y two signals, one recorded with EMG, the other with EEG. After a certain number of trials, we can find the correlation between pairs and we may want to get the maximum of the correlation function. We may be interested on the lag, which means when, in time, the two signal have maximum correlatio. With this we can find the time for the signal to be received by the muscle when transmitted by the brain. The leg time is aproximatively about 10/20 ms, which is about the propagation delay of the signal.
+
+To analyze the coherence we need the two pss and the cross PSD. The MSC finds the carrier that transmits a specific signal as it has the same frequency in both the brain and the muscle.
+
+MEG=MagnetoEncephaloGram
+
+The coherence has a peak in the beta range, so that frequency band could be a good candidate to explain the communication between brain and muscle.
+
+The approaches we saw were based on old techniques. nowadays there's the Machine Learning / deep network approach to find features from a lot of datas. The features are no more the cross-coupling, but there are some new, artificial, features. The two approaches to analyze the signals are called \emph{featuring} and \emph{architectural} approaches.
+
+example hands motor imagery. The neural network algorithm has an accuracy, increasing the data set, approximatively about 86.57\%.
+
+The architectural approach has some gaps with the phisiological data as we cannot know if it's finding some new features that we didn't know or if the algorithm is acting badly.
+
+\subsection{Abnormal EEG}
+EEG is usually useful for findind epilepsy, where amplitude is abnormal, but also for other brain malfunctions, like Parkinson or stroke diseases where activity is exaggerated on some frequency bands.
+
+NIRS Near InfraRed Spectroscopy is non invasive and, like the fMRI, analyzes the oxigenation of the brain.
