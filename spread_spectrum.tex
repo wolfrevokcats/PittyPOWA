@@ -1,0 +1,70 @@
+\chapter{Spread Spectrum}
+30/10/2017 lect \# 10
+Spread spectrum is an advanced modulation technique (like ODFM) suited for low power sensors (important in telemedicine).\\
+Basic characteristic: the transmitted signal bandwidth is much larger than the minimun required one ($B >> B_{min}$). If we have larger bandwidth we have low probabibilty of intercept/jamming, much more robustness against ISI, multiple acces, localizaition capabilities. \\
+3 modulation schemes:
+\begin{itemize}
+  \item Direct sequence (DS)
+  \item Frequency - hopping (FH)
+  \item Time - hopping (TH)
+\end{itemize}
+(Applications: GPS-UMTS-Galileo-...)
+\section{Principles}
+\begin{itemize}
+  \item Symbol period $T$
+  \item $\log_2 \frac{M}{T}$ bits per second
+  \item received signal r(t)
+\end{itemize}
+wrt to the classic modulation scheme: add some operations after digital modulator in order to spread the signal and some operations before digital demodulator in order to recover the original signal.\\
+We need a spreading code $s_C(t)$ independent of the data. Spread tx signal: $s_{TX}(t): B_S = B_C + B$.\\
+To perform the \textbf{spreading}: multiply the information signal $s(t)$ with the spreading signal $s_C(t)$. Resulting signal has much larger bandwidth than the original one.\\
+At the receiver: \textbf{despreading}. We need the knowledge of the spreading code and of the timing. Correlating $r(t)$ with a synchronized copy of $s_C(t)$, m-branch structure.
+Robustness wrt ISI $\rightarrow$ $E_J$ total energy of $I(t)$ (waveform), $s_{IJ}$ randomly chosen (interference), received signal $r(t) = s_i(t) + I(t)$.\\
+Output of i-th correlator: $r_i(t)\rightarrow SINR = \frac{E_s}{E_j}\frac{N}{M}$. The interference is spread on a larger space, the signal can be easily retreived. SIR increased
+
+\subsection{Direct Sequence scheme}
+chip rate: $\frac{1}{T_c} \sim B_c$. $B_c$ about $B_c/B \sim T/T_c$ times larger than $B$\\
+frequancy domain $\rightarrow$ convolution between $S(f)$ and $S_c(f)$.\\
+\textbf{direct sequence modulator/demodulator image}\\
+$\hat{x}(t)$ received signal, then multiplied by a synchronized version of the spreading code. \\
+spreading/despreading calculations: slides.\\
+recovered signal $\hat{s}(t)$ made of two terms: $s_l$ (information, the symbol we tx) + $n_l$ (noise) $\rightarrow$ can be demodulated with a standard modulator, if we just have noise (2 assumptions: no multipath, no ?, AWGN channel) we dont't need anything different than a standard demodulator even if we spread the signal (no impact of spreading on AWGN channels). \\
+received signal $r(t) = s(t)s_C^2(t) + \underbrace{n(t)s_C(t)}_{\textrm{approx same distrib as } n(t)}= s(t) + n'(t)$.\\
+In case of Narrowband interference I(t) (figures), at the receiver: spread signal + additive narrowband interference. Through despreading: despread the useful signal, spread the interference (multiply again by a copy of the spreading code) $\rightarrow$ the demodulator acts as a low pass filter and removes most of the energy of the spread interference.\\
+Multipath and ISI: at the rx convolution of the received signal with the impulse response of the channel $\rightarrow$ delayed version of the signal AND of the spreading code. Despreading using a version of $s_C$ synchronized with the first component of the multipath. Second multipath componend remains spread, we can efficiently recover the first multipath component, the spread spectrum is also efficient in case of multipath.\\
+
+\section{Exercises}
+\begin{itemize}
+  \item[3.] Audio signal piecewise with duration of $10$ ms. 4 possible statistical distributions:
+          \begin{itemize}
+            \item[1)] $\mathcal{N}(0, \sigma_1^2)$, $\sigma_1 = 1$ V
+            \item[2)] $\mathcal{N}(0, \sigma_2^2)$, $\sigma_2 = 2$ V
+            \item[3)] $\mathcal{U}([-5, 5])$
+            \item[4)] $\mathcal{U}([-12, 12])$
+          \end{itemize}
+          Sampling frequency $F_S = 64$ kHz. Quantization: bank of parallel quantizers (only 1 active at time).  Bit stream in output $\rightarrow$ pkts with vatiable length. Requirements:
+          \begin{itemize}
+            \item[a)] $\tilde{R}_b \downarrow$, $\Lambda_q \geq 25$ dB.\\
+            \begin{equation}
+                P_{sat} =
+            \begin{cases}
+              \leq 63 \cdot 10^{-5} & \textrm{types } 1, 2 \\
+              0  & \textrm{types } 3, 4
+            \end{cases}
+          \end{equation}
+            For gaussian distributed signals: $$P_{sat} = 2\mathcal{Q}(\frac{v_{sat}}{\sigma_{sat}} = 6.3 \cdot 10^{-5}) \rightarrow v_{sat} = 4\sigma_a$$
+            $$\Lambda_q = \frac{M_a}{M_{eq}} \simeq \frac{\sigma_a^2}{\Delta^2/12} = \frac{12\sigma_a^2L^2}{4v_{sat}^2} \rightarrow L$$
+            $$b_{1,2} = 6 bit$$
+            Uniform distr signals:
+            $$v_{sat} = a_{max} = 5 V \textrm{(type 3)}, 12 V \textrm{(type 4)}$$
+            $$(\Lambda_q)dB \simeq 6b_{3,4} 5 bit$$
+            \item[b)] Assuming 60s recording.\\
+            On average: 15s of type 1, 5s of type 3, 20s of type 3 and 4. $\tilde{R}_b$? (FIGURE)\\
+            $R_b = bF_s$, $N = F_s T_{rec}$, $\tilde{R}_b = F_s[\frac{\textrm{rec time 1 and 2}}{60s}b_{1,2}+\frac{\textrm{rec time 3 and 4}}{60s}b_{3,4}] = 341$ kbit/s
+            \item[c)] Assume that each piecewise has some prob of occurrence. Packet format for each piecewise type?\\
+            Identify the quantiz: 4 quant $\rightarrow$ 2 bit\\
+            Types 1 and 2: $6 \textrm{ bit} \cdot 64 kHz = 10 \cdot 10^{-3} = 3840$ bit\\
+            Types 3 and 4: $5 \textrm{ bit} \cdot 64 kHz = 10 \cdot 10^{-3} = 3200$ bit\\
+
+          \end{itemize}
+\end{itemize}
