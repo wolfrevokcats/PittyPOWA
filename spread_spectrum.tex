@@ -34,8 +34,8 @@ In case of Narrowband interference I(t) (figures), at the receiver: spread signa
 Multipath and ISI: at the rx convolution of the received signal with the impulse response of the channel $\rightarrow$ delayed version of the signal AND of the spreading code. Despreading using a version of $s_C$ synchronized with the first component of the multipath. Second multipath componend remains spread, we can efficiently recover the first multipath component, the spread spectrum is also efficient in case of multipath.\\
 
 \section{Exercises}
-\begin{itemize}
-  \item[3.] Audio signal piecewise with duration of $10$ ms. 4 possible statistical distributions:
+\begin{exercize}{3}
+  Audio signal piecewise with duration of $10$ ms. 4 possible statistical distributions:
           \begin{itemize}
             \item[1)] $\mathcal{N}(0, \sigma_1^2)$, $\sigma_1 = 1$ V
             \item[2)] $\mathcal{N}(0, \sigma_2^2)$, $\sigma_2 = 2$ V
@@ -52,19 +52,64 @@ Multipath and ISI: at the rx convolution of the received signal with the impulse
               0  & \textrm{types } 3, 4
             \end{cases}
           \end{equation}
+          \begin{solution}{a}
             For gaussian distributed signals: $$P_{sat} = 2\mathcal{Q}(\frac{v_{sat}}{\sigma_{sat}} = 6.3 \cdot 10^{-5}) \rightarrow v_{sat} = 4\sigma_a$$
             $$\Lambda_q = \frac{M_a}{M_{eq}} \simeq \frac{\sigma_a^2}{\Delta^2/12} = \frac{12\sigma_a^2L^2}{4v_{sat}^2} \rightarrow L$$
             $$b_{1,2} = 6 bit$$
             Uniform distr signals:
             $$v_{sat} = a_{max} = 5 V \textrm{(type 3)}, 12 V \textrm{(type 4)}$$
             $$(\Lambda_q)dB \simeq 6b_{3,4} 5 bit$$
-            \item[b)] Assuming 60s recording.\\
-            On average: 15s of type 1, 5s of type 3, 20s of type 3 and 4. $\tilde{R}_b$? (FIGURE)\\
-            $R_b = bF_s$, $N = F_s T_{rec}$, $\tilde{R}_b = F_s[\frac{\textrm{rec time 1 and 2}}{60s}b_{1,2}+\frac{\textrm{rec time 3 and 4}}{60s}b_{3,4}] = 341$ kbit/s
-            \item[c)] Assume that each piecewise has some prob of occurrence. Packet format for each piecewise type?\\
-            Identify the quantiz: 4 quant $\rightarrow$ 2 bit\\
-            Types 1 and 2: $6 \textrm{ bit} \cdot 64 kHz = 10 \cdot 10^{-3} = 3840$ bit\\
-            Types 3 and 4: $5 \textrm{ bit} \cdot 64 kHz = 10 \cdot 10^{-3} = 3200$ bit\\
+          \end{solution}
 
+             Assuming 60s recording.\\
+            On average: 15s of type 1, 5s of type 3, 20s of type 3 and 4. $\tilde{R}_b$? (FIGURE)
+          \begin{solution}{b}
+            $R_b = bF_s$, $N = F_s T_{rec}$, $\tilde{R}_b = F_s\left[\frac{\textrm{rec time 1 and 2}}{60s}b_{1,2}+\frac{\textrm{rec time 3 and 4}}{60s}b_{3,4}\right] = 341$ kbit/s
+          \end{solution}
+
+               Assume that each piecewise has some prob of occurrence. Packet format for each piecewise type?\\
+            \begin{solution}{c}
+              Identify the quantiz: 4 quant $\rightarrow$ 2 bit\\
+              Types 1 and 2: $6 \textrm{ bit} \cdot 64 kHz = 10 \cdot 10^{-3} = 3840$ bit\\
+              Types 3 and 4: $5 \textrm{ bit} \cdot 64 kHz = 10 \cdot 10^{-3} = 3200$ bit\\
+            \end{solution}
           \end{itemize}
-\end{itemize}
+\end{exercize}
+
+----
+Lecture 2017-10-31
+
+Before autocorrelation: all is on slides, nothing added.
+
+We define the autocorrelation of the spreading code
+
+\begin{equation}
+  \rho_c (t,\tau_1) = \frac{1}{T}\int_{0}^{T} s_c(t) ~ s_c(t-\tau_1) dt
+\end{equation}
+which, if $s_c(t)$ is periodic, then the autocorrelation itself is periodic with same period. Generally, if we compute the autocorrelation with another period, we find that the integral is equal to $\rho_c(\tau_{_0}-\tau_1)$
+
+The autocorrelation function, as $s_c(t)$ is not an infinite-time signal, it's not like a $\delta$ function, so there are some studies that tries to approximate the autocorrelation with a $\delta$ function.
+
+synchronization happens in coarse way: we define a power threshold and once a received signal has power higher than the threshold, we define it as the synchronization. this type is made in a discrete way (typically Tc). The other synchronization search for peaks in the autocorrelation func.
+
+RAKE RECV
+
+we synchronize to each stream $s_c(t) ~ s_c(t-\tau)~ s_c(t-2\tau)$ and then demodulate for each synchronized signal. Then we need to combine the output with a diversity combiner. For example with the MRC (MRC, Maximum Ratio Combiner) where the signal received with most power is used to extract the data transmitted by the signal itself. As there are different delays (all multiples of the chip time), we need to take into account the different phase shift.
+
+Once we selected one component, the other are considered as interference.%and will be spread when decoding. not sure
+
+\subsection{Frequency hopping}
+The modulated signal is transmitted changing the carrier frequency every chip time $T_c$. At each time we select the frequency where to transmit based on the spreading code. If we use fast frequency hopping we have frequency diversity as we protect each symbol from narrowband interference. The digital modulator needs to have as input both the symbol and the cosine form, which must be given according to the spreading sequence.
+
+At the receiver we have the opposite function, minding that the spreading sequence must be synchronized.
+
+Performance almost all in slides
+In FFH we change frequency multiple time in the same chip period, so the interference is reduced to $\frac{1}{N}$, N = number of changes. Wherease in Slow FH (SFH) we need to avoid errors due to interference of that subchannel.
+
+with multipath, as the carrier frequencies are different and non overlapping, the signal that may interfere, is eliminated with the filters of the other band.
+with FFH, the channel can be considered as flat fading, as there's no multipath interference, wherease in SFH the channel may be frequency selective.
+
+\subsection{Time Hopping}
+all on slides
+
+Cross correlation between users is present
