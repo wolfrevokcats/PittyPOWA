@@ -1,0 +1,34 @@
+\chapter{Multi user systems, part III}
+\section{Superposition coding}
+In case of superposition coding, user 1, that has a better SNR, can correctly decode his message subtracting user 2's message from the received message. User 2 instead, that has a worse SNR, sees message intended for user 1 as additional noise. We can also extend this technique for more than two users. \\
+Capacity with code division: we use non-orthogonal codes (Walsh-Hadamard is the most used) $\rightarrow$ formula on the slides. If we use non orthogonal codes, G is processing gain, interference from the other users treated as noise (reduction by 1/G). \\
+In conclusion, we can say that superposition coding with successive interference cancellation overcomes orthogonal strategies.
+\subsection{Common data}
+Broadcast application. User with better channel gain always receives also data intended for user with worse channel gain, common data must be tx to both users.\\
+\subsection{Downlink capacity}
+Real case scenario: no AWGN channel, we need to account for fading, we can assume that users have indipendent channel gains changing over the time, they have CSI at tx and rc and slow fading. $\rightarrow$ Ergodic capacity/ Zero-outage capacity/Outage capacity/Minimum rate capacity (slides).
+\subsection{Uplink capacity}
+AWGN channel, K tx, one receiver, single antenna. Two- user MAC cpacity: two costraits $$R_k \leq B\log_2(1+\frac{g_k P_k}{N_0 B})$$ $$R_1 +R_2 \leq B\log_2(1 + \frac{g_1P_1 + g_2P_2}{N_0 B})$$ Can be extended for $K > 2$.\\
+It is also possible to develope a theory for uplink capacity in fading $\rightarrow$ independent users with independent channel gains that can change over time, single antenna both at tx and rc, CSI at tx and rc. Ergodic, Zero-outage, Outage, Min rate capacity.
+\section{Power control}
+Another important issue when designing a network. Goal: adjust the tx power of the users, depending on the SINR of each user in order to meet a given threshold. Different methods for uplink (more straightforward, only 1 tx)/ downlink (more challenging).
+Uplink case (k interfering users), SINR: $$\gamma_k = \frac{g_kP_k}{n + \rho \sum_{j \neq k} g_jP_j}$$
+Assumption: each link requires a min SINR greater than zero. \\
+$P$: vector of tx powers, $u$: vector of noise powers, F matrix (slides). $P^*$, pareto optimal solution. \\
+Iterative power control algorithm: Foschini-Miljanic. $P(i+1) = FP(i) + u$ \\
+Feasible region: all the power vectors that can achieve the target SNR. $P^*$, minimum power vector in this region.
+Uplink-downlik duality: we can extrac info from one channel for the other. K user downlink and uplink dual if:
+\begin{itemize}
+  \item same channel responses $h_k$
+  \item each channel in downlink and uplink has the same noise statistics
+  \item ?
+\end{itemize}
+Multiuser diversity: opportunistic scheduling $\rightarrow$ in the wireless context results to be not very fair and long delays\\
+Possible solution: proportional fair scheduling, not as high throughput as opportunistic scheduling, but more fair and reduces latency.
+\section{Multiple antennas}
+slides
+
+\chapter{Ad-Hoc Wireless Networks}
+Peer-to-peer communications whithin the network. Mobiles handle themself: \begin{itemize} \item control tasks \item networking tasks \end{itemize}
+Advantages: robusness, node redundancy, lack of single points of failure, flexibility. \\
+Applications: military, data networks, smart homes, device networks, (body) sensor networks. \\
