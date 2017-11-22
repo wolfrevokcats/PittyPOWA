@@ -1,0 +1,97 @@
+\chapter{Ad-Hoc Wireless Networks}
+Wireless sensors are widely used in telemedicine application, especially for connecting different sensors used to monitoring people in specific environment. An ad-hoc wireless networks is a collection of wireless mobile nodes that configure themselves to form a network without the aid of any established infrastructure.
+Peer to peer communication within the network(), the terminal handle themselves:
+\begin{itemize}
+	\item control tasks
+	\item networking task (how packets can be sent from one point to the other one)
+\end{itemize}
+Generally these tasks are implemented in a distributed way in order to have many advantages: robustness, node redundancy, lack of single points of failure, low costs for deployment and maintenance, flexibility. (if a node shut down the routing table will change in order to avoid failure in transmission)
+
+\section{Applications}
+They are used in military applications, data networks, smart homes, device networks, body sensory networks. A Self-configuring and lack of infrastructure, multi hop routing and distributed control result also in performance penalty in fact we have a decreasing in data rates and an increasing in delays.
+Ad-hoc means specifically tailored on the application designer must predict type and prevention solution for cyber attacks
+
+We can divide data networks in
+\begin{itemize}
+\item LAN
+\item MAN
+\item WAN
+\end{itemize}
+In their wired version we have good performance low cost and mostly device to device communication. We can also have the wireless verion of the previous which brings advantages in flexibility, reduced costs of deployment and maintenance, peer to peer communication, multi-hop through intermediate nodes could be useful. But introduce also challenges in maintaing high data rates, a link quality at each hope and an effective multihop scheme
+
+\section{Home Networks}
+Can be used for assisted living (with eventual remote control):
+-smart rooms  (sense people and movement and adjust light and heating)
+-monitoring system (coordinate and interpret data and alert to send to police/fire dept)
+
+We have to define important parameters for network design that are \textbf{QoS}(quality of service) typically they regard directly data rates and delay constrains. They need standardization and vary in base of the specific application the network is used for. 
+
+\section{Device Networks}
+It means that we have a network composed by several devices placed in short range between each other, so we need to have protocol to ensure communication among this devices. This kind of network need low power and have low costs (devices usually count on radio)
+
+\section{Sensor Networks}
+In this networks we have typically small sensors and, in case of body area networks, we also need that they are enough small that a person forget to wear them. 
+The signals that they acquire typically are high correlated each other, this give robustness to the network. 
+They require little human intervention and they support movement or unmanned robotic vehicles. The most challenge is the battery life cause the battery cannot be so large and typically not rechargeable. (A possible solution is to try to harvest energy from the environment so from the human body itself)
+
+Application could be:
+\begin{itemize}
+\item home environment: monitoring and regulation
+\item large accidents or emergency situation so they could be used for example during rescue operation
+\end{itemize}
+
+\section{Distributed control systems}
+Currently we have a centralized architecture with synchronous clock system and fixed topology. In ad-hoc systems we can increase robustness of network deploying larger number of nodes, have a distributed architecture and a flexible topology at the cost of rate and delays.
+
+\section{Design principles}
+The most important design is the peer to peer communication, this type of communication use also multi-hop strategies to send information. Compare to other wireless system in ad-hoc network we can form infrastructure in a permanent way or in a dynamic way instead on only the first of current wireless eg some nodes can perform as base stations.
+Regarding the quality and the performance the most important measure is the SINR to measure the quality of the link, it is $ \propto\frac{1}{d^2} $ and depends on signal propagation and interference environment. It determines the data rate and the BER that can be supported by the link. In order to maintain a good SINR and depending on different topology of the network we need to adjust the transmit power form each sensors to the other.
+Also the link parameters are variable, we can have a single hop communications where a code can send packet to its final destination directly, we can also have multiple-hop where packets are delivered form source to destination using intermediate relay nodes. In the second case we have a loss of power but facilitates scalability and decentralized control. The current challenges in a multihop network are to support high data rates and low delay cause we lose some power.
+
+The scalability is the use of distributed network control algorithm which adjust local performance to account for local conditions. A typical trade-off during the information analysis is between local and centralized processing since it is an energy consuming process and, as we know, we need to save energy at every single sensor. another thing to take count during the transmit of data is that the  measured informations by sensors could be correlated so we could aggregate them and transmit only the most important data. The sleep mode can save energy of sensors but at the same time we need an efficient strategy to use it.
+
+\section{protocol layers}
+The first framework of layer was define by OSI where we had seven layers:application, presentation, session, transport, network, data link control, physical. With the internet coming we have reduced it to 5 layers: application, transport, network access and physical [image from slides] 
+Is important to notice that some feature are present in more then one layer so we joint need to optimize parameters eg power control. 
+
+\subsection{Physical layer}
+The goal is to transmit bits over a point to point wireless link, the choice that are made in this layer influence also the layers above, it interact between PER, antennas and power control. It affects local neighbourhood\footnote{given a transmit power coupled with adaptive modulation and coding for a given node defines the collection of node that a node can reach with a single hop}.
+
+\subsection{Access layer}
+The goal is to deal with multiple/random access. We need also here some policy of  power control taking into account all the nodes in order to ensure a certain amount of SINR and giving resources to nodes (assigning channel or denying access). In case we have k node and N links:
+	$$\gamma_k=\frac{g_{kk}P_k}{n_k+\rho\sum_{j\ne k}g_{kj}P_j}$$
+where $ g_kj>0 $ is the channel power hain from the transmitter of j-th link to receiver of k-th link, $ P_k $ power of trnamitter on k-th link, $ n_k $ noise power of receiver of k-th link, $ \rho $ is the interference reduction due to signal proecessing (CDMA $ \rho\sim\frac{1}{G} $).\\
+We can implement some decision algorithm to choose what power the node should transmit to other nodes, one parameter for each node. The SINR constraints for the network is given by: 
+	$$ (I-F)P\ge u $$
+with $ P>0 $ where $ P=(P_1,\dots,P_N)^T $ is the vector of N transmit power and $ u=(\frac{n_1\gamma_1^*}{denominatore},\dots) $.\\
+Is possible to find an optimal solution
+$$P^*=(I-F)^{-1}u$$
+where $ F $ is a matrix and $ F_{kj}=\begin{cases}0& \text{with } k=j\\ \frac{\gamma_k^*g_{kj}\rho}{g_{kk}} &\text{with } k\ne j\end{cases} $.\\
+When the SINR is below a certain target the power increases so it decreases when it is up that target\footnote{The information about the link has to be know only by the transmitter}. Cause the power is SINR varying we can have problems when we have non-static channels because the SINR changes and so the power of transmission. We need to take into account also for admission of new node to enter the system, when it happens the system has to update the vector of transmitting power of every single node.\\
+We also have to deal with delay constraints: power control must be coordinated for ensure min delay on the end to end route. In this level, for ensure a more reliable connectione, is used retransmission(ARQ) and are added diversity bits that add redundancy to the packet in order to retrieve information when there are errors.
+
+\subsection{Network layer}
+The goal is to establish and maintain end-to-end connections in the network. The theoretically requirement is to have a fully connected network (different from graph theory cause a link could be multi-hop)
+It deals with:
+\begin{itemize}
+	\item neighbour discovery.
+	At first we have to initialize the network with randomly distributed nodes and some initial power. We have also requirements that have to be satisfied (minimum BER, $ P_{max} $ and minimum number of links ). If $ P_{max} $ and/or N small we have small disjoint clusters and if $ p_max $ and/or N large we need high power
+	
+	In order to create topology we can have a fully connected network we can decide some sophisticated distributed power control algorithm. Typically in case of static conditions(only path loss) we can have six to eight nodes and with mobility(fading) we have large variations of the conditions and is difficult to cope with instantaneous changes of fading. We can also have network diversity (if data is tolerant of delay) the same receiver could receive data from different transmitters. The topology is influenced by the PHY. 
+	
+	\item routing 
+	How to send packet from one node to other nodes and is especially challenging when we have node mobility because routes need to be dynamically reconfigured and there are connectivity changes. There are three main category:
+	\begin{itemize}
+		\item floating: one packet to all the node in the receiving range and all the nodes broadcast the packet until the destination is reach Pros: robustness and little overhead Cons: we waste power and battery
+		\item centralized the strategy is to determine information about the channel condition and from local network to send the information to the centre then the centre compute the best route for all the nodes of the network that send the routing tables to nodes. These tables are determined by optimization objectives: 
+		\begin{itemize}
+			\item min average delay
+			\item cost for each hops
+			\item Bellman-Ford or Dijkstra
+		\end{itemize}
+		with this strategy we can achieve an optimal routing but we have a very high overhead and difficult to adjust to fast changes
+		
+		\item the most common technique is distributed routing in which nodes send their connectivity info to neighbouring nodes and routes are computed from this local info pro minimal overhead and quickly adapts to link cons global routes sub-optima and routing loops are common
+	\end{itemize}
+	\item dynamic resource	
+\end{itemize}
