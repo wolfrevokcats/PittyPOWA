@@ -13,6 +13,10 @@
 % math package
 \usepackage{mathtools,amsthm,environ,cancel,cases}
 \usepackage{amsmath, amssymb, dsfont, bm,blkarray}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
 \graphicspath{{./img/} {./.tmp/} }
 % tikz figures
 % \usepackage{tikz}
@@ -47,9 +51,19 @@
 \newtheorem{remark}{Remark}
 \newtheorem{example}{Example}
 
+
+\newenvironment{exercize}[2][Exercize]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1} \hskip \labelsep {\bfseries #2}]}{\end{trivlist}}
+\newenvironment{solution}[2][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]}{\end{trivlist}}
+%If you want to title your bold things something different just make another thing exactly like this but replace "problem" with the name of the thing you want, like theorem or lemma or whatever
+\newcounter{exercize}
+\setcounter{exercize}{1}
+
+
 % added support for proof parts
 \theoremstyle{remark}
-\newtheorem{proofpart}{Part}
+\newtheorem{proofpart}{Solution}
 \renewcommand\theproofpart{\Roman{proofpart}}
 \makeatletter
 \@addtoreset{proofpart}{theorem}
@@ -164,7 +178,10 @@
 \endgroup
 \mainmatter
 \input{review.tex}
-% \input{chapter_2.tex}
+\input{EEG.tex}
+\input{spread_spectrum.tex}
+\input{multi_user}
+\input{WSN}
 % \input{chapter_PP.tex}
 % \input{renewalProc.tex}
 % \input{gbn_analysis.tex}
