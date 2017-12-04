@@ -1,6 +1,6 @@
 \chapter{Body Sensor Network}
 \section{Bluetooth}
-The technology came from an association from different company led by Ericsson (SIG - Special Interest Group). The name came from the danish king Harold I whose tooth was colored in war due to blueberries and the symbol came from the initials of King Harold ("K" and "H"). 
+The technology came from an association from different company led by Ericsson (SIG - Special Interest Group). The name came from the danish king Harold I whose tooth was colored in war due to blueberries and the symbol came from the initials of King Harold ("K" and "H").
 
 \subsection{Protocol}
 It was bulit for short range communicaton (1-100 m) and it should be enerygy efficient as the purpose is to use it for portable devices. Seven workin groups participated on this huge project:
@@ -36,17 +36,17 @@ There are 3 basic configuration/functionalities
 \paragraph{Channel access}
 How can nodes communcicate? We have a frequency-hopping/time-division duplex scheme (FH-TDD) meaning We have a frequency-hopping spread spectrum and a time divsion scheme. Rx and Tx shared the frequency and at each transmission slot we have to have tx and rx syncrohnized.
 
-Available bandwidth is spitted into $N:b$ sub-bands and the overall bandwisth is cose to 83.5MHz whereas the numebr of sub-bands or channels are 79 for USA and 23 for Japand. 
+Available bandwidth is spitted into $N:b$ sub-bands and the overall bandwisth is cose to 83.5MHz whereas the numebr of sub-bands or channels are 79 for USA and 23 for Japand.
 The carrier frequency can ben 2.402.GHZ + kMHz for k = 0,1,..78. Remeber that at each time slot we have a carrier frequency specified.
 
-Bluetooth adopt an AFH that avoid overlapping with other non-hopping ISM systems that means that we skip some frequencies. 
+Bluetooth adopt an AFH that avoid overlapping with other non-hopping ISM systems that means that we skip some frequencies.
 \begin{itemize}
 \item Guard itnervals: 2.2.5 MHz
 \item Hopping rate: 1600 hops/s so that the time between hops (slot duration) is 625 microseconds
 \end{itemize}
 
 \paragraph{COmmunication modes}
-COmmunciation modes can be 
+COmmunciation modes can be
 \begin{enumerate}
 \item Point to point
 : 1 master, 1 slave. Master sets hopping sequence and cock, slave sycnronizes (clock and hopping sequence)
@@ -54,11 +54,11 @@ COmmunciation modes can be
 \item Multipoint-to-Multipoint (scatternet):
 \begin{itemize}
 \item connect multiple piconets
-\item Three ways t interconnect piconets 
+\item Three ways t interconnect piconets
 \begin{itemize}
 \item Master-to-Master if masters are neighbors (one of them becomes slave of the other)
 \item Slave as gateways
-\item Intermediate gateways if two slaves of two masters are neighbors. New piconets include the two slaves 
+\item Intermediate gateways if two slaves of two masters are neighbors. New piconets include the two slaves
 \end{itemize}
 \item DIfferent piconets have different frequency hopping scheme
 \end{itemize}
@@ -69,52 +69,52 @@ Piconet formation is made by a 2-step procedure:
 \item Link establishment: negotation phase
 \end{enumerate}
 
-The start topology implies that slave-slave communciaton can go through only the master observation. 
+The start topology implies that slave-slave communciaton can go through only the master observation.
 
 \paragraph{Device discovery}
 Master sends inquiring packs to the device, asking user to identify themselves and provide info about their clock. Thre's also the pre-defined inquiry hopping sequence and it is a 312.5 micorsecond sequence (twice hopping rate).
 
-At the same time the candidate slave carries its own frequency carrier and it is very slow (1..28second) so it adopt to the master's one very slowsly. 
-And that point, when they're syncronized, master and candidate slave cna meet and slave sends back to master a frequency-hopping sncronization pck (FHS) with ifo about its system clock. 
+At the same time the candidate slave carries its own frequency carrier and it is very slow (1..28second) so it adopt to the master's one very slowsly.
+And that point, when they're syncronized, master and candidate slave cna meet and slave sends back to master a frequency-hopping sncronization pck (FHS) with ifo about its system clock.
 
-Inquirer invites a new node to hjoin the piconet (paging) and then the master sends another FHS with frequency hipping sequence thatallow a new slave to adopt to it. 
+Inquirer invites a new node to hjoin the piconet (paging) and then the master sends another FHS with frequency hipping sequence thatallow a new slave to adopt to it.
 
 \paragraph{Link Layer}
-Strict schedule of transmistting packet: time axis is divided into slot with boundaries set by the master because master set the clock information, the clocking sequence and hte boundaries of the slots. 
+Strict schedule of transmistting packet: time axis is divided into slot with boundaries set by the master because master set the clock information, the clocking sequence and hte boundaries of the slots.
 Slave suncrnized on boundariees. Once they're syncornized slave and master can communciate and exchange packs.
 
-Packets transmission is performed thorugh time division duplex: we can have a single slot packet (at most one packets in each transmission slot). Master start transmitting at \emph{even} numberred tx slots while slave do that in \emph{odd} ones. 
+Packets transmission is performed thorugh time division duplex: we can have a single slot packet (at most one packets in each transmission slot). Master start transmitting at \emph{even} numberred tx slots while slave do that in \emph{odd} ones.
 
-Single-slot pc are 27 bytes of data. One pck every 2 slots tha timplies a step of 1250 microsecond. Transmission rate is172.8 kbps (unidirection, uplink or downlink). Multi-slot packet can be 183 (three slots) or 339 (five slots) bytes and the transmission rates can be585.6kbps or 723.2 kbps. 
+Single-slot pc are 27 bytes of data. One pck every 2 slots tha timplies a step of 1250 microsecond. Transmission rate is172.8 kbps (unidirection, uplink or downlink). Multi-slot packet can be 183 (three slots) or 339 (five slots) bytes and the transmission rates can be585.6kbps or 723.2 kbps.
 
-With multi-slot pck the carrier frquency is kept unchanged during the transmission because we need to have a stable communication. 
+With multi-slot pck the carrier frquency is kept unchanged during the transmission because we need to have a stable communication.
 
 \paragraph{Transmission modes}
 \begin{enumerate}
 \item Sychronous connection-oriented (SCO): the amster assign the trasnsmission slot to the slaves periodically. This can b a good idea for data flow at regualr itnervals
 \item Asynchronous connectionless (ACL) link: master polls a given slave (ask a slave to send infos at some poit) whenever an event occurs, e.g master has to send data to it.
 \end{enumerate}
-These 2 kind of linsk could be use together at the same time so the master can allocated idiffernet can of links for different slve s. 
+These 2 kind of linsk could be use together at the same time so the master can allocated idiffernet can of links for different slve s.
 
-ARQ scheme is used in Bluetooth when we have some error and it can help to have retransmission of corrupted packets. It goes from master to the slaves or viceversa. 
+ARQ scheme is used in Bluetooth when we have some error and it can help to have retransmission of corrupted packets. It goes from master to the slaves or viceversa.
 
 \paragraph{Piconet scheduling}
-In the piconet we can have differen t scheduling scheme 
+In the piconet we can have differen t scheduling scheme
 \begin{itemize}
 \item Pure Round Robin (PRR): each slave is polled one/cycle (cycle = time taken for serving all slaves). the Max delay is bounded, but waste of resources in case no data are available at some slaves
-\item Limited Round Robin: as PRR, multiple slots could be allocated for each slav. Increased throughput but still resources waste. 
+\item Limited Round Robin: as PRR, multiple slots could be allocated for each slav. Increased throughput but still resources waste.
 \item Exhaustive Round Robin: slaves are polled until they have data to send. Further increase of throughput but possible unfairness
-\item Adaptive Round Robin: unloaded slaves could be skipped. Needs for priority and traffic control schemes. Possible delays for unloaded users. 
+\item Adaptive Round Robin: unloaded slaves could be skipped. Needs for priority and traffic control schemes. Possible delays for unloaded users.
 \end{itemize}
 
 \paragraph{Power Modes}
 \begin{enumerate}
 \item Active: slave always on and listening to all transmission slots. Max responsiveness, but highest power consumption. Nodes are all the time active
 \item Sniff: Slave periodically active at regular intervals with the agree with the master. SLave checks for polling message by the maser, otherwise puts rdio to sleep. Slaves must keep synchronization with the master and the rest of the tine they can save energy, but to do so they're less responsive in case of unscheduled polling
-\item Hold: slave \textbf{previously} agree with the master to stop listening to channel for specific amount of time  s the nodes can save even more energy compare to the sniff modes. 
-\item Park: Nodes that are not in active/sniff/hold states that are no longer considered as piconet members. They still have to maintain synchronism with the master and periodically listen to it. If they want to transmit again they have to perform another phase of exchanging information as it were the first communication between them two. This kind of nodes are called \emph{parked users}. Energy savings is good and each piconet can have at most 1 master, 7 members and 25 parked users.  
-\item Standby: user no longer needs to maintain synchronism and negotiation phase is required before starting a new communication. 
-\item Other energy saving mechanisms implemented int he Bluetooth as for a slave to ask the master to adjust transmission power in order to keep at minimum error-free communication. 
+\item Hold: slave \textbf{previously} agree with the master to stop listening to channel for specific amount of time  s the nodes can save even more energy compare to the sniff modes.
+\item Park: Nodes that are not in active/sniff/hold states that are no longer considered as piconet members. They still have to maintain synchronism with the master and periodically listen to it. If they want to transmit again they have to perform another phase of exchanging information as it were the first communication between them two. This kind of nodes are called \emph{parked users}. Energy savings is good and each piconet can have at most 1 master, 7 members and 25 parked users.
+\item Standby: user no longer needs to maintain synchronism and negotiation phase is required before starting a new communication.
+\item Other energy saving mechanisms implemented int he Bluetooth as for a slave to ask the master to adjust transmission power in order to keep at minimum error-free communication.
 \end{enumerate}
 
 \paragraph{Open Issues}
@@ -129,7 +129,7 @@ In the piconet we can have differen t scheduling scheme
 \end{itemize}
 
 \subsection{Bluetooth LW Energy - BLE}
-This represent an implementation of the Bluetooth has some common feature with the main protocol still performing other differences. As in the Bluetooth there is the implementation of device discovery, connection establishment, connection mechanisms with the purpose of having low energy solution and cheaper solutions for portable device. 
+This represent an implementation of the Bluetooth has some common feature with the main protocol still performing other differences. As in the Bluetooth there is the implementation of device discovery, connection establishment, connection mechanisms with the purpose of having low energy solution and cheaper solutions for portable device.
 
 Main feature can be represented as follow:
 \begin{itemize}
@@ -144,8 +144,8 @@ Main feature can be represented as follow:
 \end{itemize}
 \item 2 Phy channels:
 \begin{enumerate}
-\item LE advertising: is a broadcast channel for discovery, interaction of devices prior connection and the communication could be establish with every number of devices. This has a short duration though. 
-\item LE piconet channel: it perform communication between connected devices, active physical link is a master-slave communication link (we can't perform scatternet communication as in Bluetooth) and the access is controlled by the master. Slaves cannot have > 1 active links with master   
+\item LE advertising: is a broadcast channel for discovery, interaction of devices prior connection and the communication could be establish with every number of devices. This has a short duration though.
+\item LE piconet channel: it perform communication between connected devices, active physical link is a master-slave communication link (we can't perform scatternet communication as in Bluetooth) and the access is controlled by the master. Slaves cannot have > 1 active links with master
 \end{enumerate}
 \end{itemize}
 \paragraph{Access}
@@ -153,22 +153,91 @@ Insert figure
 \paragraph{Logical Topology}
 \begin{itemize}
 \item \textcolor{red}{'Gna faccio più raga}
-\item Slaves connected on same master do not share physical channel 
+\item Slaves connected on same master do not share physical channel
 \end{itemize}
 So BLE represents an energy-efficient alternative to original standard
 
+04-12-2017
+
+\section{802.15.4}
+
+802.15.4 has the first two layers common with other protocols in the family 802.15
+\subsection{PHY SPECIFICATION}
+Low data rates (1Mbps) on different bands, 2.54 is crowded, so interfere have more weight.
+
+The spread spectrum techniques are the already seen DSSS and also Parallel sequence spread spectrum and *C---* spread spectrum.
+
+Each bandwidth has different number of channels and different types of modulations allowed.
+
+\subsection{NETWORK LAYER}
+
+typical topologies are star, p2p, cluster tree with different nodes roles.
+
+Main node roles are
+- Coordinator which  coordinates
+
+- Reduced function device : cannot be the Coordinator
+
+------ALL ON SLIDES-------
+
+\subsection{MAC SPECIFICATION}
+Channel scanning and energy detection is implemented to improve the efficiency of the usage of the channel and energy saving. Nodes can associate to one single node, the coordinator and can sinchronize themselves to act some multiple access techniques.
+
+Repetitive low latency: small burst of data that happens in slow
+Intermittent data: for example the doctor can ask for current data from the user.
+
+The duty cycle is extremely low to extend battery life.
+
+Non beacon enabled: all devices can listen to the channel and access it when it's available.
+
+The beacon ebabled is based on synchronization made by the periodic transmission of a beacon packet.
+
+During the superframe period the nodes can access the channel to transmit the data and then there's  some period guaranteed by the PAN coordinator to transmit some low latency packets.
+
+Each PAN need to have an address of 16 bits which can be raised to 64 if there are many PAN networks. Similarly the nodes are identified by 16 or 64 bit.
+
+!!! error
+2^46 != 65000 = 2^16
+
+The non-overlapping channel is located in the lower part of the 2.3GHz, wherease the upper part of 2.3GHz has overlapping channels, which can lead to interference.
+
+Reconnection of sensors in a network is guaranteed by some temporization, so that different sensors don't interfere each other when reconnecting.
+
+\section{ZigBee (3.0 - 2016)}
+Focused on providing solutions for devices in and for the framework of Internet of Things.
+Zigbee defines network and application layer of the ISO/OSI stack to provide low-rate WAN for solutions in the set of smart houses and biomedical applications for example.
+Over the phisical and mac layer, there's a security layer on top of which there are  network and application layers2
+
+\subsection{SPECIFICATION}
+Phisical layer is based on the 2.4GHz ISM band and the mac layer is the one defined in IEEE 802.15.4. Network layer allows multiple topologies. There are 3 types of devices: coordinator, router and end devices. Each one has a specific task
+
+Application layer has 3 different kinds of mechanism:
+Application support sublayer, Zigbee device object and user applications.
+
+APS on slides.
+ZDP defomes te devices role, configures the node, exchange the security mechanism
+User applications uses different addresses to call each user and each application based on the endpoint.
+Different ZigBee devices can communicate with each other as message formats are standardized.
+
+Healthcare profiles has 3 clusters of applications: chronics disease monitoring, personal wellness monitoring designed for non-patients. The same is for the third cluster, the fitness monitoring.
+
+The cluster library defines an identifier for the cluster class and for the type inside that cluster class.
+
+\section{802.15.6}
+Released for the purpouse of BAN with wireless communication. Work needs to be done to arrive at a good standard. The standard publication was published in 2012 and describes the scopes as the short range communication that happens closer around or inside the human body. The issues are mainly security and interoperability to implement all the possible different requirements for both medical and non-medical applications.
+
+\subsection{SPECIFICATION}
+Phisical layer has 3 types of phy layers:
+\begin{itemize}
+  \item Narrowband: exploits more than 10 channels and used for high datarate devices which are wearable or inplanted.
+  \item ultrawideband: higher frequencies band which uses implulse radio, which is mandatory and other options based on modulations. The bandwidth is about 500MHz, so there can be higher datarate. Problems are made by other devices using the same frequency bands, so preamble frequencies are added to mitigate the interference problem. Time hopping is used to allow coexistence of multiple devices, but guarantees low datarate. Frequency modulation exploits narrowband signals to reduce losses problems and the signal is then multiplied to extend it to exploit the wideband. This allows higher datarate with high reliability and low power consumption when radio is on.
+  \item human body communications Its main aim is to exploits the body to transmit data via electrical fields, instead of EM waves. Wireless or wired medium. User touches the device and it communicates with other devices. The problem is how to model human body for the transmission medium. Datarates are quite low, under the 1.5Mbps and the bandwidth is about 5Mhz, which is quite low.[Data processing scheme] Mac uses a scheduled/improvised/random access to transmit data in the network. The only type of network is the star with at maximum 2 hop neighbourhood. The 1 hop is possible on all the frequency bands, wherease the 2 hop message transmission can happen only on some bands.
+\end{itemize}
+
+\section{802.15.3}
+
+High data rate WPAN uses the standard ISM band to transmit [READING SLIDES]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+\section{Coexistence and interference}
+Multiple types of networks in the same range of space and frequencies band transmitting can lead to coexistence problems. This are investigated with the IEEE 802.15.2 protocol.
