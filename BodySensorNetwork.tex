@@ -241,3 +241,74 @@ High data rate WPAN uses the standard ISM band to transmit [READING SLIDES]
 
 \section{Coexistence and interference}
 Multiple types of networks in the same range of space and frequencies band transmitting can lead to coexistence problems. This are investigated with the IEEE 802.15.2 protocol.
+
+
+05-12-2017
+
+The pre-existing context may involve the fact that the body sensor network exploits WiFi to transmit data. This means that there are issues on interoperability and coexistence.
+
+\subsection{Interoperability}
+Mature standards to allow message exchange and usage within systems that have different protocols. This may apply both for phisical layer standards and application layer standards.
+\section{Healthcare system integration}
+There are three interoperabiltiy standards that we will analyze.
+\subsection{Health Level Seven (HL7)}
+In origin, it dealth with layer 7 of the ISO/OSI stack and its purpouse is to exchange information about patients administrative and financial status. When we want to model the system in the economical POV, we refer to business model.
+
+\subsection{DICOM}
+Popular for imaging, it's used to transmit medical imaging and can carry info about the patient examined
+
+\subsection{ISO/IEEE 11073}
+It's a family of standards used to acquire and transmit information on the person heath status and the environment around the patient, for example EM field around the patient.
+\subsubsection{Point of care MDC}
+Used in acute monitoring or emergency situation we want to transmit data real-time without delay and overhead. This means that inside the hospital, the device has almost no mobility and can transmit alway to a station. Outside the hospital, node can have a higher overhead and more delay
+
+\subsubsection{Personal Health device communicaton PHDC}
+It's being improved nowadays as it wants to eliminate the divergencies inside the PoC-MDC.
+
+Continua Alliance is a consortium that aims to advance all the telehealth family protocols and devices that can communicate end- to-end with each other allowing full interoperability.
+
+The Alliance design the guidelines and safety regulations for all the products of telehealth, minding that integration with all standards at all layers must be provided.
+
+-Lettura slides in corso-
+
+
+\section{Compression and Compressed Sensing}
+Introduction slides
+
+\subsection{Compressed sensing}
+We can reduce the power consumption to transmit data.
+
+Standard algorithms are based on the Nyquist rate, which is $F_s \ge 2* F_{max}$. Signal sampled is compressed using Fourier transform and quantizing its coefficient eliminating the irrelevant ones (e.g. too small). At the receiver the signal can be restored, with a small error, and analyzed.
+
+The main problem with that is the fact that if the signal is wide-banded, the sampling frequency must be really high, which lead to higher energy consumption, storage space to save all the sampled data and high cost circuits.
+
+Compressed or Compressive sensing is a new technique for acquiring and reconstructing a signal using small amount of data. Many times, the signal is sparse in some particular domain (time, frequency). The process is in two phases:
+
+the acquisition allows to acquire some samples with a sample rate smaller than the Nyquist rate representing a sparse signal and without aliasing. The second step uses some math techniques like the L1 optimization to recover the signal. In telemedicine CS seems to have good opportunities as we want to monitor the patient using all possible signal integrating it with environment. This means that the amount of data can be quite large, so using CS could lead to a smaller usage of the bandwidth. CS is suited also for mobile and low-power devices, so that the lifespan of the battery increases.
+
+Using compression in standard systems, power losses happens on
+
+acquisition
+
+digital signal processing
+
+wireless Transmission
+
+
+CS has advantages in all three aspects:
+
+\begin{itemize}
+  \item Acquisition: the sub-Nyquist rate allows low rate sampling, so the energy consumption is lower
+  \item DSP happens on acquisition, so no energy is wasted
+  \item wireless transmission: as the amount of data is less, the wireless consumption is lower
+\end{itemize}
+
+CS has been applied on biomedical signals, but it has higher computational complexity at the decompression location, but decompression is made offline and with higher computational power machines (e.g. cloud servers), so it may seem not a problem. We can see that there's a tradeoff between the low complexity at sensor Level and higher comprexity at reconstruction level.
+
+
+The principle is spasity: the signal acquired: it's zero in most of the frequency bands. The more sparse the signal, the more efficient the algorithm is. The incoherence principle is related with the measurement matrix, which means that the signal arriving must be incoherent with the dictionary containing a representation of ** boh**
+
+The decoding using the measurement matrix is done adding a sparse vector that multuply the sparse matrix. If X is sparse enough, $\Phi$ is almost an identity matrix. The matrix equation to solve is $Y = \Phi \Psi \alpha$, where all capital terms are matrix and $\alpha$ is the sparse vector. If the signal is sparse, with high probability the solution is available, although the number of unknowns is greater than the number of equations. The solution is the minimum L1 norm of $\alpha$
+
+
+--legge slides---
