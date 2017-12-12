@@ -83,7 +83,7 @@ It deals with:
 	How to send packet from one node to other nodes and is especially challenging when we have node mobility because routes need to be dynamically reconfigured and there are connectivity changes. There are three main category:
 	\begin{itemize}
 		\item floating: one packet to all the node in the receiving range and all the nodes broadcast the packet until the destination is reach Pros: robustness and little overhead Cons: we waste power and battery
-		\item centralized the strategy is to determine information about the channel condition and from local network to send the information to the centre then the centre compute the best route for all the nodes of the network that send the routing tables to nodes. These tables are determined by optimization objectives: 
+		\item centralized: the strategy is to determine information about the channel condition and from local network to send the information to the centre then the centre compute the best route for all the nodes of the network that send the routing tables to nodes. These tables are determined by optimization objectives: 
 		\begin{itemize}
 			\item min average delay
 			\item cost for each hops
@@ -91,7 +91,26 @@ It deals with:
 		\end{itemize}
 		with this strategy we can achieve an optimal routing but we have a very high overhead and difficult to adjust to fast changes
 		
-		\item the most common technique is distributed routing in which nodes send their connectivity info to neighbouring nodes and routes are computed from this local info pro minimal overhead and quickly adapts to link cons global routes sub-optima and routing loops are common
+		\item distributed routing (the most common technique) in which nodes send their connectivity info to neighbouring nodes and routes are computed from this local info pro minimal overhead and quickly adapts to link cons global routes sub-optima and routing loops are common
+		\item reactive routing:	it could be centralized or distributed, both of them need a distance vector routing in order to optimize the route and minimize the hop count, they also need link state routing  for optimize the route using a cost function. We have global efficient routes with little overhead but at the same time we can experience some initial delay due to the route discovery process. Most common protocols: AODV, DSR ZRP.
 	\end{itemize}
-	\item dynamic resource	
+	\item dynamic resource allocation: in order to optimize the flow control using the available resources we can ensure minimum congestion of the link and maximum tolerance delay. Two different kind of metrics: delay $ D_{ij}=\frac{f_{ij}}{C_{ij}-f_{ij} $ and link utilization $ D_ij=\frac{f_{ij}}{C_{ij}} $ where f is the traffic flow and C is the maximum capacity	
 \end{itemize}
+
+\subsection{Transport layer}
+The goals of this layer are: end to end functions of error recovery, retransission, reordering and flow control. In this layer we monitor for corrupted or lost packet, for them we request retransmission and, after receiving, we reorder the packets (wrong order due to retransmission, multipath, delay, congestion). Note: in wireless most relevant cause of packet loss is channel impairment and node mobility.
+
+\subsection{Application Layer}
+The goal of this layer is to generate data that has to be sent through the network and to process corresponding received data. One of its duty is the compression of data (it is divided in lossless and lossy).
+To enhance the probability to receive a correct packet multiple version of data are generated using different coding and at the receiver we can reconstract the data, even with some loss, and the more version are available the better is the reconstruction.
+As the channel condition or the topology of the network changes we can have the requirements for data-rate and delay change as well. To maintain these values over the QoS requirements we have to take into account the energy constraints(problem shared by all the layers). We have also other tradeoffs:
+\begin{itemize}
+	\item datarate vs robustness(compression/errors)
+	\item performance vs diversity(multiple coding)
+	\item datarate vs delay(variable QoS)
+	\item network performance vs network longevity (power/energy consumption)
+\end{itemize}
+
+\section{Cross-layers designs}
+\textit{We need the cross-layer designs in order to have some kind of adaptability: we can change or mitigate some kind of problem at the local level or at the next layer. We can use adaptive networking so each layer of protocol stack should respond to local variation in order to give adaptation at higher layers. Other techniques that can help to mitigate problems is the diversity: cooperative(multiple spatially distributed nodes), network layer (multipath routing) using these techniques we encounter diversity/troughput trade-off .
+A potentially pitfall is the increasing complexity and the reduce of architectural flexibility}\footnote{Non ho capito bene cosa volesse dire la Cisotto}
