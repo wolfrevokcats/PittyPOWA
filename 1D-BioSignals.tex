@@ -4,3 +4,27 @@
 The different muscle fibers produces combinations of signal deriving from the motor unit neuronal connection. This gives a triphasic signal (MUAP superposition)
 
 Slide reading 15-end
+
+\section{Biosignal compression}
+LECTURE 18/12/17---------------------------------------------------------------------\\
+Standard compression (slides 2-3-4):
+\begin{itemize}
+  \item SPIHT: Originally developed for images, now used also for 1D bio signals. Principle: DWT (Discrete Wavelet Transform) coefficients in different subbands have temporal relationship with one another. This compression algorithms allows us to have direct control on the compression ratio, since in any moment we can stop bit stream.
+  \item JPEG2000: both loss-less and lossy compression. Three steps: DWT, then quantization of coefficients and finally arithmetic coder (from samples to bitstream).
+\end{itemize}
+Performance evaluation (slide 5): Compression Ratio (CR) and Percentage Root-mean-squared Distortion (PDR).\\
+For ECG (slides 6-7):
+\begin{itemize}
+  \item[1.] the most important thing is to identify the QRS complex $\rightarrow$ threshold on amplitude, neural net, wavelets, ...
+  \item[2.] segmentation: divide the signal into parts of equal length (quasi periodic signal)
+  \item[3.] time domain compression techniques: AZTEC, CORTES, LTC
+  \item[4.] frequency domain: FFT, DCT, DWT (high computational complexity)
+  \item[5.] also parametric techniques: neural net, vector quantization, CS, pattern matching, denoising autoencoders (quite new, seems to give good compression performance with a reasonable computational complexity)
+\end{itemize}
+Other signals (slide 8).\\
+Compressed sensing of EEG (slide 11): a lot of literature. A good advantage is detected when > 22 electrodes (a lot). \\
+How much can we compress the EEG? (slide 12 for numbers found) also some literature, both range of acceptable PRD levels and PSNR. Test for different reconstruction algorithms (slides 13).
+Compressed sensing of ECG (slide 14-15-16-17-18): also many recent papers.\\
+Other biosignals: EOG, EMG (slide 19).\\
+Compressed sensing in BAN + smartphone/server for continuous monitoring (slide 20).\\
+Conclusions (slide 21-22): tipically compressed sensing has been tried on different databased and compared, CS performs better for ECG compared to EEG, however it deprends con CR. The main challenge is still in the reconstruction.\\
